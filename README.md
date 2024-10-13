@@ -5,8 +5,8 @@ As a challenge to practice and improve my C++ and Coding in Unreal Engine, this 
 
 ## References
 
-Cobra Code on Udemy: https://www.udemy.com/user/stephen-knall-2/
-The Udemy Course: https://www.udemy.com/course/unreal-2d-course/?couponCode=KEEPLEARNING
+Cobra Code on Udemy: https://www.udemy.com/user/stephen-knall-2/ <br>
+The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 ## Additional Features (not included in the course)
 
