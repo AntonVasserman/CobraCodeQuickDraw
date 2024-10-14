@@ -10,4 +10,10 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 ## Additional Features (not included in the course)
 
-TODO
+### TODO:
+
+1.	Add Toad Minions, resulting in a dual against 1 to 3 enemies (similiar to Ghost of Tsushima duels)
+
+### Done:
+
+None
