@@ -1,10 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright Anton Vasserman, All Rights Reserved.
 
 #include "QDSamuraiPawn.h"
 
-#include "PaperSprite.h"
 #include "PaperSpriteComponent.h"
+#include "CobraCodeQuickDraw/Core/Utility/UQuickDrawStatics.h"
 
 // Sets default values
 AQDSamuraiPawn::AQDSamuraiPawn()
@@ -14,11 +13,9 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	// Setup Paper Sprite Component
 	PaperSpriteComp = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Paper Sprite"));
 	SetRootComponent(PaperSpriteComp);
-
-	const TCHAR* TranslucentUnlitSpriteMaterialPath = TEXT("/Paper2D/TranslucentUnlitSpriteMaterial.TranslucentUnlitSpriteMaterial");
-	PaperSpriteComp->SetMaterial(0, LoadObject<UMaterialInterface>(nullptr, TranslucentUnlitSpriteMaterialPath));
-	const TCHAR* TanukiIdleSpritePath = TEXT("PaperSprite'/Game/QuickDraw/Characters/Tanuki/SPR_Tanuki_Idle.SPR_Tanuki_Idle'");
-	PaperSpriteComp->SetSprite(LoadObject<UPaperSprite>(nullptr, TanukiIdleSpritePath));
+	
+	PaperSpriteComp->SetMaterial(0, UQuickDrawStatics::GetTranslucentUnlitSpriteMaterial());
+	PaperSpriteComp->SetSprite(UQuickDrawStatics::GetTanukiIdleSprite());
 	PaperSpriteComp->TranslucencySortPriority = 1;
 }
 
