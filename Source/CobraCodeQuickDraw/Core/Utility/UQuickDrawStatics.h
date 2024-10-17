@@ -20,4 +20,12 @@ public:
 	{
 		return LoadObject<UMaterialInterface>(nullptr, TEXT("/Paper2D/TranslucentUnlitSpriteMaterial.TranslucentUnlitSpriteMaterial"));
 	}
+	FORCEINLINE static UCurveFloat* GetSlideInCurveFloat()
+	{
+		return LoadObject<UCurveFloat>(nullptr, TEXT("/Game/QuickDraw/Characters/Curve_SamuraiSlideInAlpha_Float.Curve_SamuraiSlideInAlpha_Float"));
+	}
+	FORCEINLINE static UTexture* GetTargetPointTexture()
+	{
+		return LoadObject<UTexture>(nullptr, TEXT("/Engine/EditorResources/S_TargetPoint.S_TargetPoint"));
+	}
 };
