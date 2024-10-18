@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PaperSprite.h"
-#include "UQuickDrawStatics.generated.h"
+#include "QuickDrawStatics.generated.h"
 
 UCLASS(MinimalAPI)
 class UQuickDrawStatics : public UBlueprintFunctionLibrary
@@ -15,6 +15,10 @@ public:
 	FORCEINLINE static UPaperSprite* GetTanukiIdleSprite()
 	{
 		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Characters/Tanuki/SPR_Tanuki_Idle.SPR_Tanuki_Idle'"));
+	}
+	FORCEINLINE static UPaperSprite* GetToadIdleSprite()
+	{
+		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Characters/Toad/SPR_Toad_Idle.SPR_Toad_Idle'"));
 	}
 	FORCEINLINE static UMaterialInterface* GetTranslucentUnlitSpriteMaterial()
 	{

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CobraCodeQuickDraw/Core/Utility/UQuickDrawStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
 #include "QDSamuraiPawn.generated.h"
@@ -19,19 +19,23 @@ class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
 public:
 	AQDSamuraiPawn();
 
+	virtual void OnConstruction(const FTransform& Transform) override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 protected:
 	FOnTimelineFloat SlideInTimelinePostUpdateDelegate;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Sprite)
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* PaperSpriteComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPaperSprite* IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
 	UBillboardComponent* SlideInEndBillboardComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
+	UPROPERTY(BlueprintReadOnly, Category = "Slide In Animation")
 	UTimelineComponent* SlideInTimelineComp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")

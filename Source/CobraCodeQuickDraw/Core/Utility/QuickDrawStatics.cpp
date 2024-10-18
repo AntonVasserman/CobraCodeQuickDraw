@@ -1,4 +1,4 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "UQuickDrawStatics.h"
+#include "QuickDrawStatics.h"
 

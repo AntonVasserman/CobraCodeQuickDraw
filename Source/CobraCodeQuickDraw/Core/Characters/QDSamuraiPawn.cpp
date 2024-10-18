@@ -2,13 +2,12 @@
 
 #include "QDSamuraiPawn.h"
 
-#include "CobraCodeQuickDraw/Core/Utility/UQuickDrawStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/BillboardComponent.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
 #include "PaperSpriteComponent.h"
 
-// Sets default values
 AQDSamuraiPawn::AQDSamuraiPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -18,7 +17,6 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	SetRootComponent(PaperSpriteComp);
 	
 	PaperSpriteComp->SetMaterial(0, UQuickDrawStatics::GetTranslucentUnlitSpriteMaterial());
-	PaperSpriteComp->SetSprite(UQuickDrawStatics::GetTanukiIdleSprite());
 	PaperSpriteComp->TranslucencySortPriority = 1;
 
 	// Setup Billboard for Slide In Animation
@@ -33,6 +31,13 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	SlideInTimelineComp->AddInterpFloat(SlideInCurveFloat, SlideInTimelinePostUpdateDelegate);
 	SlideInTimelineComp->SetFloatCurve(SlideInCurveFloat, TEXT("Alpha"));
 	SlideInTimelineComp->SetPlayRate(SlideInPlayRate);
+}
+
+void AQDSamuraiPawn::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+
+	PaperSpriteComp->SetSprite(IdleSprite);
 }
 
 void AQDSamuraiPawn::Tick(float DeltaTime)
@@ -58,7 +63,6 @@ void AQDSamuraiPawn::BeginPlay()
 
 void AQDSamuraiPawn::OnSlideInTimelinePostUpdate(float Alpha)
 {
-	FVector NewActorRelativeLocation = FMath::Lerp(SlideInStartLocation, SlideInEndLocation, Alpha);
-	SetActorRelativeLocation(NewActorRelativeLocation);
+	SetActorRelativeLocation(FMath::Lerp(SlideInStartLocation, SlideInEndLocation, Alpha));
 }
 
