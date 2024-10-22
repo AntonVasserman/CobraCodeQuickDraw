@@ -19,13 +19,9 @@ class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
 
 public:
 	AQDSamuraiPawn();
-
-	UFUNCTION(BlueprintCallable)
-	void Attack();
-
-	UFUNCTION(BlueprintCallable)
-	FORCEINLINE bool CanAttack() const { return bCanAttack; } 
 	
+	void Attack();
+	FORCEINLINE bool CanAttack() const { return bCanAttack; } 
 	virtual void OnConstruction(const FTransform& Transform) override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -33,6 +29,8 @@ public:
 
 protected:
 	FOnTimelineFloat SlideInTimelinePostUpdateDelegate;
+	FOnTimelineFloat AttackPostUpdateDelegate;
+	FOnTimelineEvent AttackEventDelegate;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	AQDGameModeBase* GameModeRef;
@@ -63,15 +61,34 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
 	float SlideInPlayRate = 2.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UBillboardComponent* AttackEndBillboardComp;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attack Animation")
+	UTimelineComponent* AttackTimelineComp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UCurveFloat* AttackCurveFloat = UQuickDrawStatics::GetSlideInCurveFloat();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	float AttackPlayRate = 8.f;
 
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void OnSlideInTimelinePostUpdate(float Alpha);
+
+	UFUNCTION()
+	void OnAttackTimelinePostUpdate(float Alpha);
+
+	UFUNCTION()
+	void OnAttackTimelineEvent();
 	
 private:
 	bool bCanAttack = true;
 	
 	FVector SlideInStartLocation;
 	FVector SlideInEndLocation;
+	FVector AttackEndLocation;
 };

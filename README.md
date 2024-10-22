@@ -12,7 +12,12 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 ### TODO:
 
-1.	Add Toad Minions, resulting in a dual against 1 to 3 enemies (similiar to Ghost of Tsushima duels)
+1. Change Input to be a combination of Buttons
+2. Add Toad Minions, resulting in a dual against 1 to 3 enemies (similiar to Ghost of Tsushima duels)
+3. Play the Gameloop until the player loses
+4. Save Score
+5. Save Persistent Highscore
+6. Transfer Phases to a GameState object
 
 ### Done:
 

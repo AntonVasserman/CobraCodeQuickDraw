@@ -8,7 +8,7 @@ public class CobraCodeQuickDraw : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "EnhancedInput", "InputCore", "Paper2D" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Paper2D" });
 
