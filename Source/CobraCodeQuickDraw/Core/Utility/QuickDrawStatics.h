@@ -17,6 +17,11 @@ public:
 		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Misc/SPR_Cross.SPR_Cross'"));
 	}
 
+	FORCEINLINE static UPaperSprite* GetExclamationMarkSprite()
+	{
+		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Misc/SPR_Exclamation.SPR_Exclamation'"));
+	}
+	
 	FORCEINLINE static UPaperSprite* GetTanukiAttackSprite()
 	{
 		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Characters/Tanuki/SPR_Tanuki_Attack.SPR_Tanuki_Attack'"));

@@ -21,6 +21,7 @@ public:
 	AQDSamuraiPawn();
 	
 	void Attack();
+	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; } 
 	virtual void OnConstruction(const FTransform& Transform) override;
 	virtual void Tick(float DeltaTime) override;

@@ -67,11 +67,18 @@ void AQDSamuraiPawn::Attack()
 		break;
 	case EQDPhase::Draw:
 		bCanAttack = false;
+		GameModeRef->SetGameFinished();
 		AttackTimelineComp->PlayFromStart();
 		break;
 	default:
 		break;
 	}
+}
+
+void AQDSamuraiPawn::Defeated()
+{
+	PaperSpriteComp->SetSprite(DefeatedSprite);
+	SetCrossVisibility(false);
 }
 
 void AQDSamuraiPawn::OnConstruction(const FTransform& Transform)
@@ -119,5 +126,6 @@ void AQDSamuraiPawn::OnAttackTimelinePostUpdate(float Alpha)
 void AQDSamuraiPawn::OnAttackTimelineEvent()
 {
 	PaperSpriteComp->SetSprite(AttackSprite);
+	GameModeRef->AttackedSuccessfully(IsPlayerControlled());
 }
 
