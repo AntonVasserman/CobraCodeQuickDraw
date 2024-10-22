@@ -129,3 +129,10 @@ void AQDSamuraiPawn::OnAttackTimelineEvent()
 	GameModeRef->AttackedSuccessfully(IsPlayerControlled());
 }
 
+void AQDSamuraiPawn::ResetDual()
+{
+	PaperSpriteComp->SetSprite(IdleSprite);
+	bCanAttack = true;
+	SlideInTimelineComp->PlayFromStart();
+}
+

@@ -13,7 +13,7 @@ AQDGameModeBase::AQDGameModeBase()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AQDGameModeBase::AttackedSuccessfully(const bool bPlayer) const
+void AQDGameModeBase::AttackedSuccessfully(const bool bPlayer)
 {
 	ExclamationMark->SetVisibility(false);
 	
@@ -25,6 +25,9 @@ void AQDGameModeBase::AttackedSuccessfully(const bool bPlayer) const
 	{
 		PlayerTanukiSamurai->Defeated();
 	}
+
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::ResetDual, 1.f, false, RestartDelay);
 }
 
 void AQDGameModeBase::Tick(float DeltaSeconds)
@@ -61,4 +64,12 @@ void AQDGameModeBase::OnDrawDelayFinished()
 	Phase = EQDPhase::Draw;
 	OnDrawPhaseStarted.Broadcast();
 	ExclamationMark->SetVisibility(true);
+}
+
+void AQDGameModeBase::ResetDual()
+{
+	Phase = EQDPhase::Intro;
+	ElapsedTime = 0.f;
+	PlayerTanukiSamurai->ResetDual();
+	ToadSamurai->ResetDual();
 }

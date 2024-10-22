@@ -19,10 +19,10 @@ class COBRACODEQUICKDRAW_API AQDGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 public:
 	FDrawPhaseStarted OnDrawPhaseStarted;
-	
+
 	AQDGameModeBase();
 	
-	void AttackedSuccessfully(const bool bPlayer) const;
+	void AttackedSuccessfully(const bool bPlayer);
 	FORCEINLINE EQDPhase GetPhase() const { return Phase; }
 	FORCEINLINE void SetGameFinished() { Phase = EQDPhase::Finished; }
 	virtual void Tick(float DeltaSeconds) override;
@@ -47,6 +47,8 @@ private:
 	float RoundStartTime = 0.f;
 	float MinDrawDelay = 1.f;
 	float MaxDrawDelay = 3.f;
+	float RestartDelay = 2.f;
 
 	void OnDrawDelayFinished();
+	void ResetDual();
 };

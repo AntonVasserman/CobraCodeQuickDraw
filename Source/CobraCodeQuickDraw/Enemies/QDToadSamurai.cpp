@@ -27,5 +27,4 @@ void AQDToadSamurai::OnDrawPhaseStarted()
 {
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDToadSamurai::OnDrawDelayFinished, 1.f, false, DrawDelayDuration);
-	// GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::OnDrawDelayFinished, 1.f, false, RandomDelay);
 }

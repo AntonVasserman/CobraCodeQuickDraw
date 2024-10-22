@@ -24,9 +24,10 @@ public:
 	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; } 
 	virtual void OnConstruction(const FTransform& Transform) override;
-	virtual void Tick(float DeltaTime) override;
+	void ResetDual();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	FORCEINLINE void SetCrossVisibility(const bool bVisibility) const { CrossPaperSpriteComp->SetVisibility(bVisibility); }
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	FOnTimelineFloat SlideInTimelinePostUpdateDelegate;
