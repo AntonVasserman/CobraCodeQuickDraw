@@ -13,4 +13,13 @@ class COBRACODEQUICKDRAW_API AQDToadSamurai : public AQDSamuraiPawn
 
 public:
 	AQDToadSamurai();
+
+protected:
+	virtual void BeginPlay() override;
+	void OnDrawDelayFinished();
+	UFUNCTION()
+	void OnDrawPhaseStarted();
+
+private:
+	float DrawDelayDuration = 2.f;
 };

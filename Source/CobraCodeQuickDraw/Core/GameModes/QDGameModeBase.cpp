@@ -59,5 +59,6 @@ void AQDGameModeBase::BeginPlay()
 void AQDGameModeBase::OnDrawDelayFinished()
 {
 	Phase = EQDPhase::Draw;
+	OnDrawPhaseStarted.Broadcast();
 	ExclamationMark->SetVisibility(true);
 }

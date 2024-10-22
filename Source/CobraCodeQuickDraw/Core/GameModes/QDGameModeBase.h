@@ -11,11 +11,15 @@ class AQDToadSamurai;
 class AQDTanukiSamurai;
 class AQDExclamationMark;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDrawPhaseStarted);
+
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
+	FDrawPhaseStarted OnDrawPhaseStarted;
+	
 	AQDGameModeBase();
 	
 	void AttackedSuccessfully(const bool bPlayer) const;
