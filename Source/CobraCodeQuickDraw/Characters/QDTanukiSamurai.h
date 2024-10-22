@@ -13,4 +13,7 @@ class COBRACODEQUICKDRAW_API AQDTanukiSamurai : public AQDSamuraiPawn
 
 public:
 	AQDTanukiSamurai();
+
+protected:
+	virtual void BeginPlay() override;
 };
