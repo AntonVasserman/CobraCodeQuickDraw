@@ -11,40 +11,37 @@ class AQDToadSamurai;
 class AQDTanukiSamurai;
 class AQDExclamationMark;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDrawPhaseStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPhaseChanged, EQDPhase, Phase);
 
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
-	FDrawPhaseStarted OnDrawPhaseStarted;
+	FOnPhaseChanged OnPhaseChanged;
 
-	AQDGameModeBase();
-	
-	void AttackedSuccessfully(const bool bPlayer);
 	FORCEINLINE EQDPhase GetPhase() const { return Phase; }
-	FORCEINLINE void SetGameFinished() { Phase = EQDPhase::Finished; }
-	virtual void Tick(float DeltaSeconds) override;
 
 protected:
-	UPROPERTY(BlueprintReadWrite)
-	EQDPhase Phase = EQDPhase::Intro;
-
 	virtual void BeginPlay() override;
+	UFUNCTION()
+	void OnAttackSucceeded(const bool bPlayer);
+	UFUNCTION()
+	void OnAwaitingDuel();
+	virtual void SetPhase(EQDPhase NewPhase);
 
 private:
+	EQDPhase Phase = EQDPhase::None;
+	
 	UPROPERTY()
 	AQDExclamationMark* ExclamationMark;
 
 	UPROPERTY()
-	AQDTanukiSamurai* PlayerTanukiSamurai;
+	AQDTanukiSamurai* PlayerTanukiSamurai = nullptr;
 
 	UPROPERTY()
-	AQDToadSamurai* ToadSamurai;
-
-	float ElapsedTime = 0.f;
-	float RoundStartTime = 0.f;
+	AQDToadSamurai* ToadSamurai = nullptr;
+	
 	float MinDrawDelay = 1.f;
 	float MaxDrawDelay = 3.f;
 	float RestartDelay = 2.f;

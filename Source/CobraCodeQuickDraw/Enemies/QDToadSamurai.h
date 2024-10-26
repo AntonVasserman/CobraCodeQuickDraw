@@ -15,10 +15,7 @@ public:
 	AQDToadSamurai();
 
 protected:
-	virtual void BeginPlay() override;
-	void OnDrawDelayFinished();
-	UFUNCTION()
-	void OnDrawPhaseStarted();
+	virtual void OnPhaseChanged(EQDPhase Phase) override;
 
 private:
 	float DrawDelayDuration = 2.f;

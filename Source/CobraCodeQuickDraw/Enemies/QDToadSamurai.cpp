@@ -11,20 +11,14 @@ AQDToadSamurai::AQDToadSamurai()
 	CrossPaperSpriteComp->SetRelativeRotation(FRotator(0.f, 180.f, 0.f));
 }
 
-void AQDToadSamurai::BeginPlay()
+void AQDToadSamurai::OnPhaseChanged(EQDPhase Phase)
 {
-	Super::BeginPlay();
-
-	GameModeRef->OnDrawPhaseStarted.AddDynamic(this, &AQDToadSamurai::OnDrawPhaseStarted);
-}
-
-void AQDToadSamurai::OnDrawDelayFinished()
-{
-	Attack();
-}
-
-void AQDToadSamurai::OnDrawPhaseStarted()
-{
-	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDToadSamurai::OnDrawDelayFinished, 1.f, false, DrawDelayDuration);
+	Super::OnPhaseChanged(Phase);
+	
+	// We use an if instead of switch-case because otherwise we have to init TimerHandle on each call
+	if (Phase == EQDPhase::Draw)
+	{
+		FTimerHandle TimerHandle;
+		GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDToadSamurai::Attack, 1.f, false, DrawDelayDuration);
+	}
 }

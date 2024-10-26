@@ -8,12 +8,26 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
-AQDGameModeBase::AQDGameModeBase()
+void AQDGameModeBase::BeginPlay()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	Super::BeginPlay();
+
+	ExclamationMark = Cast<AQDExclamationMark>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDExclamationMark::StaticClass()));
+	
+	PlayerTanukiSamurai = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
+	PlayerTanukiSamurai->DispatchBeginPlay();
+	PlayerTanukiSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
+	PlayerTanukiSamurai->OnAttackSucceeded.AddDynamic(this, &AQDGameModeBase::OnAttackSucceeded);
+
+	ToadSamurai = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
+	ToadSamurai->DispatchBeginPlay();
+	ToadSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
+	ToadSamurai->OnAttackSucceeded.AddDynamic(this, &AQDGameModeBase::OnAttackSucceeded);
+
+	SetPhase(EQDPhase::Intro);
 }
 
-void AQDGameModeBase::AttackedSuccessfully(const bool bPlayer)
+void AQDGameModeBase::OnAttackSucceeded(const bool bPlayer)
 {
 	ExclamationMark->SetVisibility(false);
 	
@@ -26,50 +40,39 @@ void AQDGameModeBase::AttackedSuccessfully(const bool bPlayer)
 		PlayerTanukiSamurai->Defeated();
 	}
 
+	SetPhase(EQDPhase::Finished);
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::ResetDual, 1.f, false, RestartDelay);
 }
 
-void AQDGameModeBase::Tick(float DeltaSeconds)
+void AQDGameModeBase::OnAwaitingDuel()
 {
-	Super::Tick(DeltaSeconds);
-
-	ElapsedTime += DeltaSeconds;
-
-	if (Phase != EQDPhase::Intro)
+	if (IsValid(PlayerTanukiSamurai) && PlayerTanukiSamurai->IsAwaitingDuel() &&
+		IsValid(ToadSamurai) && ToadSamurai->IsAwaitingDuel())
 	{
-		return;
-	}
-
-	if (ElapsedTime > RoundStartTime)
-	{
-		Phase = EQDPhase::Wait;
+		SetPhase(EQDPhase::Wait);
 		const float RandomDelay = UKismetMathLibrary::RandomFloatInRange(MinDrawDelay, MaxDrawDelay);
 		FTimerHandle TimerHandle;
 		GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::OnDrawDelayFinished, 1.f, false, RandomDelay);
 	}
 }
 
-void AQDGameModeBase::BeginPlay()
+void AQDGameModeBase::SetPhase(EQDPhase NewPhase)
 {
-	Super::BeginPlay();
-
-	ExclamationMark = Cast<AQDExclamationMark>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDExclamationMark::StaticClass()));
-	PlayerTanukiSamurai = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
-	ToadSamurai = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
+	UE_LOG(LogTemp, Warning, TEXT("Setting Phase to: %hhd"), NewPhase);
+	Phase = NewPhase;
+	OnPhaseChanged.Broadcast(Phase);
 }
 
 void AQDGameModeBase::OnDrawDelayFinished()
 {
-	Phase = EQDPhase::Draw;
-	OnDrawPhaseStarted.Broadcast();
+	SetPhase(EQDPhase::Draw);
 	ExclamationMark->SetVisibility(true);
 }
 
 void AQDGameModeBase::ResetDual()
 {
-	Phase = EQDPhase::Intro;
-	ElapsedTime = 0.f;
 	PlayerTanukiSamurai->ResetDual();
 	ToadSamurai->ResetDual();
+	SetPhase(EQDPhase::Intro);
 }

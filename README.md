@@ -10,15 +10,27 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 ## Additional Features (not included in the course)
 
-### TODO:
+### Refactoring:
 
-1. Change Input to be a combination of Buttons
-2. Add Toad Minions, resulting in a dual against 1 to 3 enemies (similiar to Ghost of Tsushima duels)
-3. Play the Gameloop until the player loses
-4. Save Score
-5. Save Persistent Highscore
-6. Transfer Phases to a GameState object
+TODO:
+1. Camera and Player Character are being initiated via PlayerStart as should
+2. Inputs are being handled via a PlayerController
+3. AI is being handled via an AIController
+4. Game-loop is handled via Phase Change Event instead of GameMode handling everything
+5. Phase state moved into a GameState class
 
-### Done:
+Done:
 
-None
+### New Features:
+
+TODO:
+1. Attack is done via a Combination of Buttons in an Order
+2. Added support for multiple enemies, specifically added minions to accompany the Toad Samurai (this results in a Ghost of Tsushima like duel)
+3. Draw indicator improved by adding sound and draw animations
+4. Added Score per enemy defeated
+5. Added multiple levels with difficulty set by a Data Table with the Game Loop playing until player loses
+6. Added Main Menu
+7. Added persistence for score and high score
+8. Added Sound & FX
+
+Done:

@@ -12,28 +12,35 @@
 
 class UTimelineComponent;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAwaitingDuel);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackSucceeded, bool, bIsPlayer);
+
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
+	FOnAwaitingDuel OnAwaitingDuel;
+	FOnAttackSucceeded OnAttackSucceeded;
+	
 	AQDSamuraiPawn();
 	
 	void Attack();
 	void Defeated();
-	FORCEINLINE bool CanAttack() const { return bCanAttack; } 
+	FORCEINLINE bool CanAttack() const { return bCanAttack; }
+	FORCEINLINE bool IsAwaitingDuel() const { return bAwaitingDuel; }
 	virtual void OnConstruction(const FTransform& Transform) override;
 	void ResetDual();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	FORCEINLINE void SetCrossVisibility(const bool bVisibility) const { CrossPaperSpriteComp->SetVisibility(bVisibility); }
-	virtual void Tick(float DeltaTime) override;
 
 protected:
-	FOnTimelineFloat SlideInTimelinePostUpdateDelegate;
-	FOnTimelineFloat AttackPostUpdateDelegate;
+	FOnTimelineFloat SlideInTimelineUpdateDelegate;
+	FOnTimelineEvent SlideInTimelineFinishedDelegate;
+	FOnTimelineFloat AttackUpdateDelegate;
 	FOnTimelineEvent AttackEventDelegate;
-
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	AQDGameModeBase* GameModeRef;
 	
@@ -79,16 +86,19 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void OnSlideInTimelinePostUpdate(float Alpha);
-
+	virtual void OnPhaseChanged(EQDPhase Phase);
 	UFUNCTION()
-	void OnAttackTimelinePostUpdate(float Alpha);
-
+	void OnSlideInTimelineFinished();
+	UFUNCTION()
+	void OnSlideInTimelineUpdate(float Alpha);
+	UFUNCTION()
+	void OnAttackTimelineUpdate(float Alpha);
 	UFUNCTION()
 	void OnAttackTimelineEvent();
 	
 private:
-	bool bCanAttack = true;
+	bool bAwaitingDuel = false;
+	bool bCanAttack = false;
 	
 	FVector SlideInStartLocation;
 	FVector SlideInEndLocation;
