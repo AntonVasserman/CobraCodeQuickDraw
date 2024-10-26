@@ -14,10 +14,9 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 TODO:
 
-1. Exclamation Mark moved to be a Widget instead of a Sprite Actor
-2. Inputs are being handled via a PlayerController
-3. AI is being handled via an AIController
-4. Phase state moved into a GameState class
+1. Inputs are being handled via a PlayerController
+2. AI is being handled via an AIController
+3. Phase state moved into a GameState class
 
 WIP:
 
@@ -26,6 +25,7 @@ WIP:
 Done:
 
 1. Game-loop is handled via Phase Change Event instead of GameMode handling everything
+2. Exclamation Mark moved to be a Widget instead of a Sprite Actor 
 
 ### New Features:
 
