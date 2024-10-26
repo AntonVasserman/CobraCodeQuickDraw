@@ -32,9 +32,6 @@ protected:
 
 private:
 	EQDPhase Phase = EQDPhase::None;
-	
-	UPROPERTY()
-	AQDExclamationMark* ExclamationMark;
 
 	UPROPERTY()
 	AQDTanukiSamurai* PlayerTanukiSamurai = nullptr;

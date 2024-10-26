@@ -97,8 +97,7 @@ void AQDSamuraiPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 void AQDSamuraiPawn::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// Bindings
+	
 	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
 

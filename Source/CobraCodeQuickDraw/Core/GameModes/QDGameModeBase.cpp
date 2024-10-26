@@ -2,7 +2,6 @@
 
 #include "QDGameModeBase.h"
 
-#include "CobraCodeQuickDraw/Characters/QDExclamationMark.h"
 #include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
 #include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
 #include "Kismet/GameplayStatics.h"
@@ -12,8 +11,6 @@ void AQDGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ExclamationMark = Cast<AQDExclamationMark>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDExclamationMark::StaticClass()));
-	
 	PlayerTanukiSamurai = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
 	PlayerTanukiSamurai->DispatchBeginPlay();
 	PlayerTanukiSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
@@ -29,8 +26,6 @@ void AQDGameModeBase::BeginPlay()
 
 void AQDGameModeBase::OnAttackSucceeded(const bool bPlayer)
 {
-	ExclamationMark->SetVisibility(false);
-	
 	if (bPlayer)
 	{
 		ToadSamurai->Defeated();
@@ -67,7 +62,6 @@ void AQDGameModeBase::SetPhase(EQDPhase NewPhase)
 void AQDGameModeBase::OnDrawDelayFinished()
 {
 	SetPhase(EQDPhase::Draw);
-	ExclamationMark->SetVisibility(true);
 }
 
 void AQDGameModeBase::ResetDual()

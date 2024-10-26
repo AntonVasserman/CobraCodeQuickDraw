@@ -3,9 +3,17 @@
 
 #include "QDPlayerController.h"
 
+#include "Blueprint/UserWidget.h"
 #include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Kismet/GameplayStatics.h"
+
+AQDPlayerController::AQDPlayerController()
+{
+	static ConstructorHelpers::FClassFinder<UUserWidget> DrawWidgetClass(TEXT("/Game/QuickDraw/UI/WBP_Draw"));
+	DrawWidget = DrawWidgetClass.Succeeded() ? CreateWidget<UUserWidget>(GetWorld(), DrawWidgetClass.Class) : nullptr;
+}
 
 void AQDPlayerController::BeginPlay()
 {
@@ -15,6 +23,9 @@ void AQDPlayerController::BeginPlay()
 	{
 		EnhancedInputLocalPlayerSubsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
+
+	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDPlayerController::OnPhaseChanged);
 }
 
 void AQDPlayerController::SetupInputComponent()
@@ -25,6 +36,25 @@ void AQDPlayerController::SetupInputComponent()
 		IsValid(EnhancedInputComp))
 	{
 		EnhancedInputComp->BindAction(AttackAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestAttackAction);
+	}
+}
+
+void AQDPlayerController::OnPhaseChanged(EQDPhase Phase)
+{
+	switch (Phase)
+	{
+	case EQDPhase::Draw:
+		if (IsValid(DrawWidget))
+		{
+			DrawWidget->AddToViewport();
+		}
+		break;
+	case EQDPhase::Finished:
+		if (IsValid(DrawWidget) && DrawWidget->IsInViewport())
+		{
+			DrawWidget->RemoveFromParent();
+		}
+		break;
 	}
 }
 
