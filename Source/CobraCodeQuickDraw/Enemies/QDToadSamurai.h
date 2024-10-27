@@ -15,6 +15,7 @@ public:
 	AQDToadSamurai();
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void OnPhaseChanged(EQDPhase Phase) override;
 
 private:

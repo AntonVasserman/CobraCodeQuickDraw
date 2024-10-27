@@ -59,9 +59,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
 	UPaperSprite* IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
-	UBillboardComponent* SlideInEndBillboardComp;
-
 	UPROPERTY(BlueprintReadOnly, Category = "Slide In Animation")
 	UTimelineComponent* SlideInTimelineComp;
 
@@ -70,9 +67,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
 	float SlideInPlayRate = 2.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
-	UBillboardComponent* AttackEndBillboardComp;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Attack Animation")
 	UTimelineComponent* AttackTimelineComp;
@@ -83,6 +77,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
 	float AttackPlayRate = 8.f;
 
+	TWeakObjectPtr<AQDSamuraiPawn> AttackTargetPawn = nullptr;
+	
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
@@ -99,8 +95,10 @@ protected:
 private:
 	bool bAwaitingDuel = false;
 	bool bCanAttack = false;
-	
+
+	float SlideInAlphaFromCenter = 0.75f;
 	FVector SlideInStartLocation;
 	FVector SlideInEndLocation;
+	float AttackAlphaFromTarget = 0.65f;
 	FVector AttackEndLocation;
 };

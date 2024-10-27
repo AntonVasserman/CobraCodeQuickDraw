@@ -4,6 +4,7 @@
 
 #include "PaperSpriteComponent.h"
 #include "Camera/CameraComponent.h"
+#include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
 #include "Kismet/GameplayStatics.h"
 
 AQDTanukiSamurai::AQDTanukiSamurai()
@@ -32,4 +33,5 @@ void AQDTanukiSamurai::BeginPlay()
 	Super::BeginPlay();
 	
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
+	AttackTargetPawn = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
 }

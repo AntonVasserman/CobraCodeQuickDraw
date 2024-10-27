@@ -29,23 +29,12 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	CrossPaperSpriteComp->SetSprite(Cast<UPaperSprite>(UQuickDrawStatics::GetCrossSprite()));
 	CrossPaperSpriteComp->TranslucencySortPriority = 2;
 	
-	// Setup Billboard for Slide In Animation
-	SlideInEndBillboardComp = CreateDefaultSubobject<UBillboardComponent>(TEXT("Slide In Animation End Billboard"));
-	SlideInEndBillboardComp->SetSprite(Cast<UTexture2D>(UQuickDrawStatics::GetTargetPointTexture()));
-	SlideInEndBillboardComp->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
-	
-	// Setup Billboard for Attack Animation
-	AttackEndBillboardComp = CreateDefaultSubobject<UBillboardComponent>(TEXT("Attack Animation End Billboard"));
-	AttackEndBillboardComp->SetSprite(Cast<UTexture2D>(UQuickDrawStatics::GetTargetPointTexture()));
-	AttackEndBillboardComp->SetRelativeScale3D(FVector(0.2f, 0.2f, 0.2f));
-	
 	// Setup Slide In Animation Timeline
 	SlideInTimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("Slide In Animation Timeline"));
 	SlideInTimelineUpdateDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineUpdate);
 	SlideInTimelineComp->AddInterpFloat(SlideInCurveFloat, SlideInTimelineUpdateDelegate);
 	SlideInTimelineFinishedDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineFinished);
 	SlideInTimelineComp->SetTimelineFinishedFunc(SlideInTimelineFinishedDelegate);
-	SlideInTimelineComp->SetFloatCurve(SlideInCurveFloat, TEXT("Alpha"));
 	SlideInTimelineComp->SetPlayRate(SlideInPlayRate);
 
 	// Setup Attack Anim Timeline
@@ -54,7 +43,6 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	AttackTimelineComp->AddInterpFloat(AttackCurveFloat, AttackUpdateDelegate);
 	AttackEventDelegate.BindDynamic(this, &AQDSamuraiPawn::OnAttackTimelineEvent);
 	AttackTimelineComp->AddEvent(0.6f, AttackEventDelegate);
-	AttackTimelineComp->SetFloatCurve(AttackCurveFloat, TEXT("Alpha"));
 	AttackTimelineComp->SetPlayRate(AttackPlayRate);
 }
 
@@ -102,8 +90,7 @@ void AQDSamuraiPawn::BeginPlay()
 	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
 
 	SlideInStartLocation = PaperSpriteComp->GetComponentLocation();
-	SlideInEndLocation = SlideInEndBillboardComp->GetComponentLocation();
-	AttackEndLocation = AttackEndBillboardComp->GetComponentLocation();
+	SlideInEndLocation = FMath::Lerp(SlideInStartLocation, FVector::ZeroVector, SlideInAlphaFromCenter);
 
 	SetCrossVisibility(false);
 }
@@ -116,6 +103,7 @@ void AQDSamuraiPawn::OnPhaseChanged(EQDPhase Phase)
 		SlideInTimelineComp->PlayFromStart();
 		break;
 	case EQDPhase::Wait:
+		AttackEndLocation = FMath::Lerp(GetActorLocation(), AttackTargetPawn->GetActorLocation(), AttackAlphaFromTarget);
 		bCanAttack = true;
 	default:
 		break;
