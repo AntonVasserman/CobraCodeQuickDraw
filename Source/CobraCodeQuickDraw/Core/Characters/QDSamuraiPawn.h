@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "PaperSpriteComponent.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
 #include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
+
 #include "QDSamuraiPawn.generated.h"
 
 class UTimelineComponent;

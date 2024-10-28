@@ -3,13 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/PlayerController.h"
 #include "InputMappingContext.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "QDPlayerController.generated.h"
 
-class AQDGameModeBase;
-class AQDTanukiSamurai;
+#include "QDPlayerController.generated.h"
 
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDPlayerController : public APlayerController
@@ -35,10 +34,10 @@ protected:
 
 private:
 	UPROPERTY()
-	AQDGameModeBase* GameModeRef = nullptr;
+	class AQDGameModeBase* GameModeRef = nullptr;
 	
 	UPROPERTY()
-	AQDTanukiSamurai* PossessedTanukiSamurai;
+	class AQDSamuraiPawn* PossessedPawn;
 
 	UPROPERTY()
 	UUserWidget* DrawWidget = nullptr;

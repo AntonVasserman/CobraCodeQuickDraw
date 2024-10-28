@@ -3,7 +3,6 @@
 #include "QDSamuraiPawn.h"
 
 #include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
-#include "Components/BillboardComponent.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
 #include "PaperSpriteComponent.h"

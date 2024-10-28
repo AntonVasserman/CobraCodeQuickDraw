@@ -4,7 +4,7 @@
 #include "QDPlayerController.h"
 
 #include "Blueprint/UserWidget.h"
-#include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
+#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
@@ -55,6 +55,8 @@ void AQDPlayerController::OnPhaseChanged(EQDPhase Phase)
 			DrawWidget->RemoveFromParent();
 		}
 		break;
+	default:
+		break;
 	}
 }
 
@@ -62,13 +64,13 @@ void AQDPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	PossessedTanukiSamurai = Cast<AQDTanukiSamurai>(InPawn);
+	PossessedPawn = Cast<AQDSamuraiPawn>(InPawn);
 }
 
 void AQDPlayerController::RequestAttackAction()
 {
-	if (PossessedTanukiSamurai->CanAttack())
+	if (PossessedPawn->CanAttack())
 	{
-		PossessedTanukiSamurai->Attack();
+		PossessedPawn->Attack();
 	}
 }

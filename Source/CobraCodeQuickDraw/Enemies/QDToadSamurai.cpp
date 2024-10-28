@@ -20,15 +20,3 @@ void AQDToadSamurai::BeginPlay()
 
 	AttackTargetPawn = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
 }
-
-void AQDToadSamurai::OnPhaseChanged(EQDPhase Phase)
-{
-	Super::OnPhaseChanged(Phase);
-	
-	// We use an if instead of switch-case because otherwise we have to init TimerHandle on each call
-	if (Phase == EQDPhase::Draw)
-	{
-		FTimerHandle TimerHandle;
-		GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDToadSamurai::Attack, 1.f, false, DrawDelayDuration);
-	}
-}

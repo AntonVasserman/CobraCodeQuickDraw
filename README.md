@@ -14,8 +14,7 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 TODO:
 
-1. AI is being handled via an AIController
-2. Phase state moved into a GameState class
+1. Phase state moved into a GameState class
 
 Done:
 
@@ -23,6 +22,7 @@ Done:
 2. Exclamation Mark moved to be a Widget instead of a Sprite Actor 
 3. Camera and Player Character are being initiated via PlayerStart instead of a Pawn/Character Blueprint in the level.
 4. Inputs as well as Widget are being handled via a PlayerController.
+5. AI is being handled via an AIController
 
 ### New Features:
 

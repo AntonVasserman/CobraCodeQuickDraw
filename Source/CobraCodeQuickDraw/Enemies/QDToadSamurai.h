@@ -16,8 +16,4 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void OnPhaseChanged(EQDPhase Phase) override;
-
-private:
-	float DrawDelayDuration = 2.f;
 };
