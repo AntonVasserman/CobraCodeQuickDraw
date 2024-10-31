@@ -19,6 +19,7 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	SetRootComponent(PaperSpriteComp);
 	
 	PaperSpriteComp->SetMaterial(0, UQuickDrawStatics::GetTranslucentUnlitSpriteMaterial());
+	PaperSpriteComp->SetSprite(IdleSprite);
 	PaperSpriteComp->TranslucencySortPriority = 1;
 
 	// Setup Cross Paper Sprite Component
@@ -68,19 +69,6 @@ void AQDSamuraiPawn::Defeated()
 	SetCrossVisibility(false);
 }
 
-void AQDSamuraiPawn::OnConstruction(const FTransform& Transform)
-{
-	Super::OnConstruction(Transform);
-
-	PaperSpriteComp->SetSprite(IdleSprite);
-}
-
-void AQDSamuraiPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
 void AQDSamuraiPawn::BeginPlay()
 {
 	Super::BeginPlay();
@@ -88,6 +76,8 @@ void AQDSamuraiPawn::BeginPlay()
 	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
 
+	PaperSpriteComp->SetSprite(IdleSprite);
+	
 	SlideInStartLocation = PaperSpriteComp->GetComponentLocation();
 	SlideInEndLocation = FMath::Lerp(SlideInStartLocation, FVector::ZeroVector, SlideInAlphaFromCenter);
 

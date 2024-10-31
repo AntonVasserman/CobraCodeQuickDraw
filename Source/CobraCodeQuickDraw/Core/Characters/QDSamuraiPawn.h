@@ -8,7 +8,6 @@
 #include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
-
 #include "QDSamuraiPawn.generated.h"
 
 class UTimelineComponent;
@@ -31,9 +30,7 @@ public:
 	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; }
 	FORCEINLINE bool IsAwaitingDuel() const { return bAwaitingDuel; }
-	virtual void OnConstruction(const FTransform& Transform) override;
 	void ResetDual();
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	FORCEINLINE void SetCrossVisibility(const bool bVisibility) const { CrossPaperSpriteComp->SetVisibility(bVisibility); }
 
 protected:
