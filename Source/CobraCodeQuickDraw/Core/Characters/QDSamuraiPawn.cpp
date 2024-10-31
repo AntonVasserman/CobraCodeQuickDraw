@@ -121,6 +121,12 @@ void AQDSamuraiPawn::OnAttackTimelineEvent()
 	OnAttackSucceeded.Broadcast(IsPlayerControlled());
 }
 
+void AQDSamuraiPawn::PostInitProperties()
+{
+	Super::PostInitProperties();
+	PaperSpriteComp->SetSprite(IdleSprite);
+}
+
 void AQDSamuraiPawn::ResetDual()
 {
 	PaperSpriteComp->SetSprite(IdleSprite);

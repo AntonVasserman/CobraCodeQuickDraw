@@ -25,11 +25,11 @@ public:
 	FOnAttackSucceeded OnAttackSucceeded;
 	
 	AQDSamuraiPawn();
-	
 	void Attack();
 	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; }
 	FORCEINLINE bool IsAwaitingDuel() const { return bAwaitingDuel; }
+	virtual void PostInitProperties() override;
 	void ResetDual();
 	FORCEINLINE void SetCrossVisibility(const bool bVisibility) const { CrossPaperSpriteComp->SetVisibility(bVisibility); }
 
