@@ -18,6 +18,9 @@ class COBRACODEQUICKDRAW_API AQDAIController : public AAIController
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
+	AQDGameModeBase* GameModeRef = nullptr;
+	
 	virtual void BeginPlay() override;
 	UFUNCTION()
 	void OnPhaseChanged(EQDPhase Phase);
@@ -25,9 +28,6 @@ protected:
 	void RequestAttackAction();
 
 private:
-	UPROPERTY()
-	AQDGameModeBase* GameModeRef = nullptr;
-	
 	UPROPERTY()
 	AQDSamuraiPawn* PossessedPawn;
 

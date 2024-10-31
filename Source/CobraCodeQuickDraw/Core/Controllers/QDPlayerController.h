@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "GameFramework/PlayerController.h"
 #include "InputMappingContext.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
@@ -19,6 +18,9 @@ public:
 	AQDPlayerController();
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
+	class AQDGameModeBase* GameModeRef = nullptr;
+
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputMappingContext* DefaultMappingContext = nullptr;
 
@@ -33,9 +35,6 @@ protected:
 	void RequestAttackAction();
 
 private:
-	UPROPERTY()
-	class AQDGameModeBase* GameModeRef = nullptr;
-	
 	UPROPERTY()
 	class AQDSamuraiPawn* PossessedPawn;
 

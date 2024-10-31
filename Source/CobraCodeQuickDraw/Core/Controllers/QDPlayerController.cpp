@@ -7,6 +7,7 @@
 #include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 
 AQDPlayerController::AQDPlayerController()

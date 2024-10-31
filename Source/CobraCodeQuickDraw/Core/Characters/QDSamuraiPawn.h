@@ -3,9 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "PaperSpriteComponent.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
+#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
 #include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
@@ -43,13 +42,13 @@ protected:
 	FOnTimelineFloat AttackUpdateDelegate;
 	FOnTimelineEvent AttackEventDelegate;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	AQDGameModeBase* GameModeRef;
+	UPROPERTY(BlueprintReadOnly)
+	class AQDGameModeBase* GameModeRef = nullptr;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* PaperSpriteComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")

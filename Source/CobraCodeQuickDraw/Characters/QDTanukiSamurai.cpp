@@ -12,12 +12,13 @@ AQDTanukiSamurai::AQDTanukiSamurai()
 	AttackSprite = UQuickDrawStatics::GetTanukiAttackSprite();
 	DefeatedSprite = UQuickDrawStatics::GetTanukiDefeatedSprite();
 	IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite();
-	PaperSpriteComp->TranslucencySortPriority = 1; // TODO: Consider changing this to use somehow the 'Z' as we want the toad to be behind the Tanuki
+	PaperSpriteComp->TranslucencySortPriority = 1;
 	CrossPaperSpriteComp->SetRelativeLocation(FVector(30.f, 0.2f, 10.f));
 
 	// Setup Camera Component
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(PaperSpriteComp);
+
 	CameraComp->SetUsingAbsoluteLocation(true);
 	CameraComp->SetWorldLocation(FVector(0.f, 275.f, 0.f));
 	CameraComp->SetUsingAbsoluteRotation(true);
