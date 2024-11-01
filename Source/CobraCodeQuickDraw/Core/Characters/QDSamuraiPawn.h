@@ -40,7 +40,7 @@ protected:
 	FOnTimelineEvent AttackEventDelegate;
 	
 	UPROPERTY(BlueprintReadOnly)
-	class AQDGameModeBase* GameModeRef = nullptr;
+	class AQDGameStateBase* GameStateRef = nullptr;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* PaperSpriteComp;

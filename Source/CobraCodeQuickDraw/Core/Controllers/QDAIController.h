@@ -3,14 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "AIController.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-
 #include "QDAIController.generated.h"
-
-class AQDSamuraiPawn;
-class AQDGameModeBase;
 
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDAIController : public AAIController
@@ -19,7 +14,7 @@ class COBRACODEQUICKDRAW_API AQDAIController : public AAIController
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
-	AQDGameModeBase* GameModeRef = nullptr;
+	class AQDGameStateBase* GameStateRef = nullptr;
 	
 	virtual void BeginPlay() override;
 	UFUNCTION()
@@ -29,7 +24,7 @@ protected:
 
 private:
 	UPROPERTY()
-	AQDSamuraiPawn* PossessedPawn;
+	class AQDSamuraiPawn* PossessedPawn;
 
 	float DrawDelayDuration = 2.f;
 };

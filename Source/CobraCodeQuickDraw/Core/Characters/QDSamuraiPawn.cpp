@@ -2,13 +2,12 @@
 
 #include "QDSamuraiPawn.h"
 
+#include "PaperSpriteComponent.h"
+#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
+#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
 #include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
-#include "PaperSpriteComponent.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "Kismet/GameplayStatics.h"
 
 AQDSamuraiPawn::AQDSamuraiPawn()
 {
@@ -48,7 +47,7 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 
 void AQDSamuraiPawn::Attack()
 {
-	switch (GameModeRef->GetPhase())
+	switch (GameStateRef->GetPhase())
 	{
 	case EQDPhase::Wait:
 		SetCrossVisibility(true);
@@ -73,8 +72,8 @@ void AQDSamuraiPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
+	GameStateRef = GetWorld()->GetGameState<AQDGameStateBase>();
+	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
 
 	PaperSpriteComp->SetSprite(IdleSprite);
 	

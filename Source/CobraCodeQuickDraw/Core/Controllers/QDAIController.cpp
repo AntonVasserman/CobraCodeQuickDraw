@@ -4,15 +4,14 @@
 #include "QDAIController.h"
 
 #include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
-#include "Kismet/GameplayStatics.h"
+#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
 
 void AQDAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDAIController::OnPhaseChanged);
+	GameStateRef = GetWorld()->GetGameState<AQDGameStateBase>();
+	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDAIController::OnPhaseChanged);
 }
 
 void AQDAIController::OnPhaseChanged(EQDPhase Phase)

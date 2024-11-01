@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
 #include "InputMappingContext.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-
+#include "GameFramework/PlayerController.h"
 #include "QDPlayerController.generated.h"
 
 UCLASS()
@@ -19,7 +18,7 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
-	class AQDGameModeBase* GameModeRef = nullptr;
+	class AQDGameStateBase* GameStateRef = nullptr;
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputMappingContext* DefaultMappingContext = nullptr;

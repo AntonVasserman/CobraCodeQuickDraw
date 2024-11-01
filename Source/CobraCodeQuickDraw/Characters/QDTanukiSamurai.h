@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
-
 #include "QDTanukiSamurai.generated.h"
 
 class UCameraComponent;

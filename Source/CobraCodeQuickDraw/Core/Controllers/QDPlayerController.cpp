@@ -3,12 +3,11 @@
 
 #include "QDPlayerController.h"
 
-#include "Blueprint/UserWidget.h"
-#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDGameModeBase.h"
-#include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
+#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
+#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
 
 AQDPlayerController::AQDPlayerController()
 {
@@ -25,8 +24,8 @@ void AQDPlayerController::BeginPlay()
 		EnhancedInputLocalPlayerSubsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
 
-	GameModeRef = Cast<AQDGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameModeRef->OnPhaseChanged.AddDynamic(this, &AQDPlayerController::OnPhaseChanged);
+	GameStateRef = GetWorld()->GetGameState<AQDGameStateBase>();
+	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDPlayerController::OnPhaseChanged);
 }
 
 void AQDPlayerController::SetupInputComponent()

@@ -4,8 +4,15 @@
 
 #include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
 #include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
+#include "GameFramework/GameStateBase.h"
+#include "GameStates/QDGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+
+AQDGameModeBase::AQDGameModeBase()
+{
+	GameStateClass = AQDGameStateBase::StaticClass();
+}
 
 void AQDGameModeBase::BeginPlay()
 {
@@ -21,7 +28,7 @@ void AQDGameModeBase::BeginPlay()
 	ToadSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
 	ToadSamurai->OnAttackSucceeded.AddDynamic(this, &AQDGameModeBase::OnAttackSucceeded);
 
-	SetPhase(EQDPhase::Intro);
+	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Intro);
 }
 
 void AQDGameModeBase::OnAttackSucceeded(const bool bPlayer)
@@ -34,8 +41,8 @@ void AQDGameModeBase::OnAttackSucceeded(const bool bPlayer)
 	{
 		PlayerTanukiSamurai->Defeated();
 	}
-
-	SetPhase(EQDPhase::Finished);
+	
+	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Finished);
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::ResetDual, 1.f, false, RestartDelay);
 }
@@ -45,28 +52,21 @@ void AQDGameModeBase::OnAwaitingDuel()
 	if (IsValid(PlayerTanukiSamurai) && PlayerTanukiSamurai->IsAwaitingDuel() &&
 		IsValid(ToadSamurai) && ToadSamurai->IsAwaitingDuel())
 	{
-		SetPhase(EQDPhase::Wait);
+		Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Wait);
 		const float RandomDelay = UKismetMathLibrary::RandomFloatInRange(MinDrawDelay, MaxDrawDelay);
 		FTimerHandle TimerHandle;
 		GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::OnDrawDelayFinished, 1.f, false, RandomDelay);
 	}
 }
 
-void AQDGameModeBase::SetPhase(EQDPhase NewPhase)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Setting Phase to: %hhd"), NewPhase);
-	Phase = NewPhase;
-	OnPhaseChanged.Broadcast(Phase);
-}
-
 void AQDGameModeBase::OnDrawDelayFinished()
 {
-	SetPhase(EQDPhase::Draw);
+	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Draw);
 }
 
 void AQDGameModeBase::ResetDual()
 {
 	PlayerTanukiSamurai->ResetDual();
 	ToadSamurai->ResetDual();
-	SetPhase(EQDPhase::Intro);
+	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Intro);
 }
