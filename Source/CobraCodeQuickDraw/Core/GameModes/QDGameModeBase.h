@@ -16,11 +16,15 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	UFUNCTION()
-	void OnAttackSucceeded(const bool bPlayer);
-	UFUNCTION()
 	void OnAwaitingDuel();
+	UFUNCTION()
+	void OnDefeated();
+	UFUNCTION()
+	void OnStunned();
 
 private:
+	FTimerHandle DrawDelayTimerHandle;
+	
 	UPROPERTY()
 	class AQDTanukiSamurai* PlayerTanukiSamurai = nullptr;
 

@@ -19,6 +19,7 @@ public:
 protected:
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* CameraComp;
-	
+
 	virtual void BeginPlay() override;
+	virtual void OnPhaseChanged(EQDPhase Phase) override;
 };

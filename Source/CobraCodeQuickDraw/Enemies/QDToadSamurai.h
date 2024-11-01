@@ -14,6 +14,9 @@ class COBRACODEQUICKDRAW_API AQDToadSamurai : public AQDSamuraiPawn
 public:
 	AQDToadSamurai();
 
+	virtual void Attack() override;
+
 protected:
 	virtual void BeginPlay() override;
+	virtual void OnPhaseChanged(EQDPhase Phase) override;
 };

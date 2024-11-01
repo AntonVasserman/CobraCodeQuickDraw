@@ -50,8 +50,7 @@ void AQDSamuraiPawn::Attack()
 	switch (GameStateRef->GetPhase())
 	{
 	case EQDPhase::Wait:
-		SetCrossVisibility(true);
-		bCanAttack = false;
+		OnStunned.Broadcast();
 		break;
 	case EQDPhase::Draw:
 		bCanAttack = false;
@@ -64,8 +63,9 @@ void AQDSamuraiPawn::Attack()
 
 void AQDSamuraiPawn::Defeated()
 {
-	PaperSpriteComp->SetSprite(DefeatedSprite);
 	SetCrossVisibility(false);
+	PaperSpriteComp->SetSprite(DefeatedSprite);
+	OnDefeated.Broadcast();
 }
 
 void AQDSamuraiPawn::BeginPlay()
@@ -93,6 +93,7 @@ void AQDSamuraiPawn::OnPhaseChanged(EQDPhase Phase)
 	case EQDPhase::Wait:
 		AttackEndLocation = FMath::Lerp(GetActorLocation(), AttackTargetPawn->GetActorLocation(), AttackAlphaFromTarget);
 		bCanAttack = true;
+		break;
 	default:
 		break;
 	}
@@ -117,7 +118,7 @@ void AQDSamuraiPawn::OnAttackTimelineUpdate(float Alpha)
 void AQDSamuraiPawn::OnAttackTimelineEvent()
 {
 	PaperSpriteComp->SetSprite(AttackSprite);
-	OnAttackSucceeded.Broadcast(IsPlayerControlled());
+	AttackTargetPawn->Defeated();
 }
 
 void AQDSamuraiPawn::PostInitProperties()

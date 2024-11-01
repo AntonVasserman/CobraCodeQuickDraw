@@ -13,7 +13,8 @@
 class UTimelineComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAwaitingDuel);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackSucceeded, bool, bIsPlayer);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDefeated);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStunned);
 
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
@@ -22,10 +23,11 @@ class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
 
 public:
 	FOnAwaitingDuel OnAwaitingDuel;
-	FOnAttackSucceeded OnAttackSucceeded;
+	FOnDefeated OnDefeated;
+	FOnStunned OnStunned;
 	
 	AQDSamuraiPawn();
-	void Attack();
+	virtual void Attack();
 	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; }
 	FORCEINLINE bool IsAwaitingDuel() const { return bAwaitingDuel; }
@@ -75,6 +77,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
 	float AttackPlayRate = 8.f;
 
+	bool bCanAttack = false;
 	TWeakObjectPtr<AQDSamuraiPawn> AttackTargetPawn = nullptr;
 	
 	virtual void BeginPlay() override;
@@ -92,8 +95,6 @@ protected:
 	
 private:
 	bool bAwaitingDuel = false;
-	bool bCanAttack = false;
-
 	float SlideInAlphaFromCenter = 0.75f;
 	FVector SlideInStartLocation;
 	FVector SlideInEndLocation;

@@ -21,30 +21,28 @@ void AQDGameModeBase::BeginPlay()
 	PlayerTanukiSamurai = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
 	PlayerTanukiSamurai->DispatchBeginPlay();
 	PlayerTanukiSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
-	PlayerTanukiSamurai->OnAttackSucceeded.AddDynamic(this, &AQDGameModeBase::OnAttackSucceeded);
+	PlayerTanukiSamurai->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
+	PlayerTanukiSamurai->OnStunned.AddDynamic(this, &AQDGameModeBase::OnStunned);
 
 	ToadSamurai = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
 	ToadSamurai->DispatchBeginPlay();
 	ToadSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
-	ToadSamurai->OnAttackSucceeded.AddDynamic(this, &AQDGameModeBase::OnAttackSucceeded);
+	ToadSamurai->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
 
 	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Intro);
 }
 
-void AQDGameModeBase::OnAttackSucceeded(const bool bPlayer)
+void AQDGameModeBase::OnDefeated()
 {
-	if (bPlayer)
-	{
-		ToadSamurai->Defeated();
-	}
-	else
-	{
-		PlayerTanukiSamurai->Defeated();
-	}
-	
 	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Finished);
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::ResetDual, 1.f, false, RestartDelay);
+}
+
+void AQDGameModeBase::OnStunned()
+{
+	GetWorldTimerManager().ClearTimer(DrawDelayTimerHandle);
+	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::PlayerStunned);
 }
 
 void AQDGameModeBase::OnAwaitingDuel()
@@ -54,8 +52,7 @@ void AQDGameModeBase::OnAwaitingDuel()
 	{
 		Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Wait);
 		const float RandomDelay = UKismetMathLibrary::RandomFloatInRange(MinDrawDelay, MaxDrawDelay);
-		FTimerHandle TimerHandle;
-		GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::OnDrawDelayFinished, 1.f, false, RandomDelay);
+		GetWorldTimerManager().SetTimer(DrawDelayTimerHandle, this, &AQDGameModeBase::OnDrawDelayFinished, 1.f, false, RandomDelay);
 	}
 }
 

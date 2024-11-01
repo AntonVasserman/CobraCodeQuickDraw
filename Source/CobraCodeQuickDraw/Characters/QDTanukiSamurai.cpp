@@ -36,3 +36,18 @@ void AQDTanukiSamurai::BeginPlay()
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
 	AttackTargetPawn = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
 }
+
+void AQDTanukiSamurai::OnPhaseChanged(EQDPhase Phase)
+{
+	Super::OnPhaseChanged(Phase);
+	
+	switch (Phase)
+	{
+	case EQDPhase::PlayerStunned:
+		SetCrossVisibility(true);
+		bCanAttack = false;
+		break;
+	default:
+		break;
+	}
+}
