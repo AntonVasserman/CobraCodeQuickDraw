@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputMappingContext.h"
 #include "PaperSprite.h"
 #include "QuickDrawStatics.generated.h"
 
@@ -12,9 +13,19 @@ class UQuickDrawStatics : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
+	FORCEINLINE static UInputAction* GetAttackInputAction()
+	{
+		return LoadObject<UInputAction>(nullptr, TEXT("/Game/QuickDraw/Core/Inputs/Actions/IA_Attack.IA_Attack"));
+	}
+
 	FORCEINLINE static UPaperSprite* GetCrossSprite()
 	{
 		return LoadObject<UPaperSprite>(nullptr, TEXT("PaperSprite'/Game/QuickDraw/Misc/SPR_Cross.SPR_Cross'"));
+	}
+
+	FORCEINLINE static UInputMappingContext* GetDefaultMappingContext()
+	{
+		return LoadObject<UInputMappingContext>(nullptr, TEXT("/Game/QuickDraw/Core/Inputs/IMC_Default.IMC_Default"));
 	}
 
 	FORCEINLINE static UPaperSprite* GetExclamationMarkSprite()

@@ -3,6 +3,7 @@
 #include "QDGameModeBase.h"
 
 #include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
+#include "CobraCodeQuickDraw/Core/Controllers/QDPlayerController.h"
 #include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameStates/QDGameStateBase.h"
@@ -12,6 +13,7 @@
 AQDGameModeBase::AQDGameModeBase()
 {
 	GameStateClass = AQDGameStateBase::StaticClass();
+	PlayerControllerClass = AQDPlayerController::StaticClass();
 }
 
 void AQDGameModeBase::BeginPlay()

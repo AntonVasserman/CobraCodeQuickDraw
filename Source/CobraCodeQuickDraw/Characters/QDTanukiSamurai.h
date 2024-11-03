@@ -6,8 +6,6 @@
 #include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
 #include "QDTanukiSamurai.generated.h"
 
-class UCameraComponent;
-
 UCLASS()
 class COBRACODEQUICKDRAW_API AQDTanukiSamurai : public AQDSamuraiPawn
 {
@@ -17,8 +15,11 @@ public:
 	AQDTanukiSamurai();
 
 protected:
-	UPROPERTY(VisibleAnywhere, Category = Camera)
-	UCameraComponent* CameraComp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+	class USpringArmComponent* SpringArmComp;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+	class UCameraComponent* CameraComp;
 
 	virtual void BeginPlay() override;
 	virtual void OnPhaseChanged(EQDPhase Phase) override;
