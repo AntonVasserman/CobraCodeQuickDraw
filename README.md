@@ -13,12 +13,13 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 ### Refactoring:
 
 1. Game-loop is handled via Phase Change Event instead of GameMode handling everything
-2. Exclamation Mark moved to be a Widget instead of a Sprite Actor 
+2. Exclamation Mark moved to be a Widget instead of a Sprite Actor ~~~~
 3. Camera and Player Character are being initiated via PlayerStart instead of a Pawn/Character Blueprint in the level.
 4. Inputs as well as Widget are being handled via a PlayerController.
 5. AI is being handled via an AIController
 6. Phase state moved into a GameState class
 7. Enemy Attacks right after Player tries to attack too early
+8. Changed Camera into Ortho mode
 
 ### New Features:
 
