@@ -17,7 +17,7 @@ public:
 	AQDTanukiSamurai();
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = Camera)
 	UCameraComponent* CameraComp;
 
 	virtual void BeginPlay() override;

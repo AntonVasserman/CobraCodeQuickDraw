@@ -44,19 +44,19 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class AQDGameStateBase* GameStateRef = nullptr;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(BlueprintReadOnly, Category = Sprite)
 	UPaperSpriteComponent* PaperSpriteComp;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(BlueprintReadOnly, Category = Sprite)
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
 	UPaperSprite* AttackSprite = UQuickDrawStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
 	UPaperSprite* DefeatedSprite = UQuickDrawStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
 	UPaperSprite* IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
 	UPROPERTY(BlueprintReadOnly, Category = "Slide In Animation")

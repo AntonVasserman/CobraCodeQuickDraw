@@ -20,10 +20,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class AQDGameStateBase* GameStateRef = nullptr;
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(VisibleAnywhere, Category = Input)
 	UInputMappingContext* DefaultMappingContext = nullptr;
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(VisibleAnywhere, Category = Input)
 	UInputAction* AttackAction = nullptr;
 
 	virtual void BeginPlay() override;
