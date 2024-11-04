@@ -10,8 +10,6 @@
 #include "GameFramework/Pawn.h"
 #include "QDSamuraiPawn.generated.h"
 
-class UTimelineComponent;
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAwaitingDuel);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDefeated);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStunned);
@@ -44,37 +42,37 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class AQDGameStateBase* GameStateRef = nullptr;
 	
-	UPROPERTY(BlueprintReadOnly, Category = Sprite)
+	UPROPERTY(BlueprintReadOnly, Category=Sprite)
 	UPaperSpriteComponent* PaperSpriteComp;
 
-	UPROPERTY(BlueprintReadOnly, Category = Sprite)
+	UPROPERTY(BlueprintReadOnly, Category=Sprite)
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
 	UPaperSprite* AttackSprite = UQuickDrawStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
 	UPaperSprite* DefeatedSprite = UQuickDrawStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
 	UPaperSprite* IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
-	UPROPERTY(BlueprintReadOnly, Category = "Slide In Animation")
+	UPROPERTY(BlueprintReadOnly, Category="Slide In Animation")
 	UTimelineComponent* SlideInTimelineComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
 	UCurveFloat* SlideInCurveFloat = UQuickDrawStatics::GetSlideInCurveFloat();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
 	float SlideInPlayRate = 2.f;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attack Animation")
+	UPROPERTY(BlueprintReadOnly, Category="Attack Animation")
 	UTimelineComponent* AttackTimelineComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
 	UCurveFloat* AttackCurveFloat = UQuickDrawStatics::GetSlideInCurveFloat();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
 	float AttackPlayRate = 8.f;
 
 	bool bCanAttack = false;
