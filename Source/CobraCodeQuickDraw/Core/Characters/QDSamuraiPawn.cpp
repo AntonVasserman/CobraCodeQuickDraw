@@ -5,7 +5,7 @@
 #include "PaperSpriteComponent.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
 #include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
 
@@ -17,15 +17,15 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	PaperSpriteComp = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Paper Sprite"));
 	SetRootComponent(PaperSpriteComp);
 	
-	PaperSpriteComp->SetMaterial(0, UQuickDrawStatics::GetTranslucentUnlitSpriteMaterial());
+	PaperSpriteComp->SetMaterial(0, UQDStatics::GetTranslucentUnlitSpriteMaterial());
 	PaperSpriteComp->SetSprite(IdleSprite);
 	PaperSpriteComp->TranslucencySortPriority = 1;
 
 	// Setup Cross Paper Sprite Component
 	CrossPaperSpriteComp = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Cross Paper Sprite"));
 	CrossPaperSpriteComp->SetupAttachment(PaperSpriteComp);
-	CrossPaperSpriteComp->SetMaterial(0, UQuickDrawStatics::GetTranslucentUnlitSpriteMaterial());
-	CrossPaperSpriteComp->SetSprite(Cast<UPaperSprite>(UQuickDrawStatics::GetCrossSprite()));
+	CrossPaperSpriteComp->SetMaterial(0, UQDStatics::GetTranslucentUnlitSpriteMaterial());
+	CrossPaperSpriteComp->SetSprite(Cast<UPaperSprite>(UQDStatics::GetCrossSprite()));
 	CrossPaperSpriteComp->TranslucencySortPriority = 2;
 	
 	// Setup Slide In Animation Timeline

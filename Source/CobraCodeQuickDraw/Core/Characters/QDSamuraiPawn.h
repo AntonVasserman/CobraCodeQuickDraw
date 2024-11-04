@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperSpriteComponent.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
 #include "QDSamuraiPawn.generated.h"
@@ -49,19 +49,19 @@ protected:
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
-	UPaperSprite* AttackSprite = UQuickDrawStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
+	UPaperSprite* AttackSprite = UQDStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
-	UPaperSprite* DefeatedSprite = UQuickDrawStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
+	UPaperSprite* DefeatedSprite = UQDStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
-	UPaperSprite* IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
+	UPaperSprite* IdleSprite = UQDStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
 	UPROPERTY(BlueprintReadOnly, Category="Slide In Animation")
 	UTimelineComponent* SlideInTimelineComp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
-	UCurveFloat* SlideInCurveFloat = UQuickDrawStatics::GetSlideInCurveFloat();
+	UCurveFloat* SlideInCurveFloat = UQDStatics::GetSlideInCurveFloat();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
 	float SlideInPlayRate = 2.f;
@@ -70,7 +70,7 @@ protected:
 	UTimelineComponent* AttackTimelineComp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
-	UCurveFloat* AttackCurveFloat = UQuickDrawStatics::GetSlideInCurveFloat();
+	UCurveFloat* AttackCurveFloat = UQDStatics::GetSlideInCurveFloat();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
 	float AttackPlayRate = 8.f;

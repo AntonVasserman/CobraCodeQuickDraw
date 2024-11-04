@@ -10,9 +10,9 @@
 
 AQDTanukiSamurai::AQDTanukiSamurai()
 {
-	AttackSprite = UQuickDrawStatics::GetTanukiAttackSprite();
-	DefeatedSprite = UQuickDrawStatics::GetTanukiDefeatedSprite();
-	IdleSprite = UQuickDrawStatics::GetTanukiIdleSprite();
+	AttackSprite = UQDStatics::GetTanukiAttackSprite();
+	DefeatedSprite = UQDStatics::GetTanukiDefeatedSprite();
+	IdleSprite = UQDStatics::GetTanukiIdleSprite();
 	PaperSpriteComp->TranslucencySortPriority = 1;
 	CrossPaperSpriteComp->SetRelativeLocation(FVector(30.f, 0.2f, 10.f));
 

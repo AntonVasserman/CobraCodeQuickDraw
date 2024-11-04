@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "InputMappingContext.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QuickDrawStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDInputStatics.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
 #include "GameFramework/PlayerController.h"
 #include "QDPlayerController.generated.h"
 
@@ -22,10 +23,10 @@ protected:
 	class AQDGameStateBase* GameStateRef = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category=Input)
-	UInputMappingContext* DefaultMappingContext = UQuickDrawStatics::GetDefaultMappingContext();
+	UInputMappingContext* DefaultMappingContext = UQDInputStatics::GetDefaultMappingContext();
 
 	UPROPERTY(VisibleAnywhere, Category=Input)
-	UInputAction* AttackAction = UQuickDrawStatics::GetAttackInputAction();
+	UInputAction* AttackAction = UQDInputStatics::GetAttackInputAction();
 	
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
