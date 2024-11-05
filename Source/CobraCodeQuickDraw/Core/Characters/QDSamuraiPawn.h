@@ -42,37 +42,37 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class AQDGameStateBase* GameStateRef = nullptr;
 	
-	UPROPERTY(BlueprintReadOnly, Category=Sprite)
+	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* PaperSpriteComp;
 
-	UPROPERTY(BlueprintReadOnly, Category=Sprite)
+	UPROPERTY(BlueprintReadOnly, Category = "Sprite")
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
 	UPaperSprite* AttackSprite = UQDStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
 	UPaperSprite* DefeatedSprite = UQDStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Sprite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprite")
 	UPaperSprite* IdleSprite = UQDStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
-	UPROPERTY(BlueprintReadOnly, Category="Slide In Animation")
+	UPROPERTY(BlueprintReadOnly, Category = "Slide In Animation")
 	UTimelineComponent* SlideInTimelineComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
 	UCurveFloat* SlideInCurveFloat = UQDStatics::GetSlideInCurveFloat();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide In Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Slide In Animation")
 	float SlideInPlayRate = 2.f;
 
-	UPROPERTY(BlueprintReadOnly, Category="Attack Animation")
+	UPROPERTY(BlueprintReadOnly, Category = "Attack Animation")
 	UTimelineComponent* AttackTimelineComp;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
 	UCurveFloat* AttackCurveFloat = UQDStatics::GetSlideInCurveFloat();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attack Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
 	float AttackPlayRate = 8.f;
 
 	bool bCanAttack = false;

@@ -15,10 +15,10 @@ public:
 	AQDTanukiSamurai();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Camera)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class USpringArmComponent* SpringArmComp;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Camera)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	class UCameraComponent* CameraComp;
 
 	virtual void BeginPlay() override;
