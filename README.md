@@ -13,7 +13,7 @@ Cobra Code on Udemy: https://www.udemy.com/user/stephen-knall-2/
 
 The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
-## Additional Features (not included in the course)
+## Additional Features
 
 ### Refactoring:
 
