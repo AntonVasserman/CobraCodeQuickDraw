@@ -1,7 +1,11 @@
 # Quick Draw (with C++)
 This is a Repository for Quick Draw, a Game Project from Cobra Code's Udemy course.
 
-As a challenge to practice and improve my C++ and Coding in Unreal Engine, this project is done using C++ rather than Blueprints.
+As an exercise to improve my C++ in Unreal Engine, this project is done using C++ rather than only Blueprints.
+
+In addition, as an exercise to improve my Game Programmering skills, this project includes:
+* Refactorings: Different code structure and implementation of existing features
+* New Features: Additions on top of the initial project to expand the gameplay
 
 ## References
 
@@ -9,7 +13,7 @@ Cobra Code on Udemy: https://www.udemy.com/user/stephen-knall-2/
 
 The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
-## Additional Features (not included in the course)
+## Additional Features
 
 ### Refactoring:
 
@@ -24,7 +28,8 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 ### New Features:
 
-TODO:
+#### TODO:
+
 1. Attack is done via a Combination of Buttons in an Order (Arrows in Keyboard / Facepad in Controller)
 2. Added support for multiple enemies, specifically added minions to accompany the Toad Samurai (this results in a Ghost of Tsushima like duel)
 3. Draw indicator improved by adding sound and draw animations
@@ -34,4 +39,6 @@ TODO:
 7. Added persistence for score and high score
 8. Added Sound & FX (Grayscale on defeat, and as rounds progress transition to afternoon vibe and night vibe)
 
+<!--
 Done:
+-->
