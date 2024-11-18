@@ -30,14 +30,12 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
 #### TODO:
 
-1. Attack is done via a Combination of Buttons in an Order (Arrows in Keyboard / Facepad in Controller)
-2. Added support for multiple enemies, specifically added minions to accompany the Toad Samurai (this results in a Ghost of Tsushima like duel)
-3. Draw indicator improved by adding sound and draw animations
-4. Added Score per enemy defeated
-5. Added multiple levels with difficulty set by a Data Table with the Game Loop playing until player loses
-6. Added Main Menu
-7. Added persistence for score and high score
-8. Added Sound & FX (Grayscale on defeat, and as rounds progress transition to afternoon vibe and night vibe)
+1. Draw Button Combination in favor of single Draw Button
+2. Multiple Enemies
+3. Main Menu
+4. Multiple Levels
+5. Score and High Score
+6. Final Polish: Additional Animations, Sounds, Music, and FX
 
 <!--
 #### Done:
