@@ -9,7 +9,7 @@ In addition, as an exercise to improve my Game Programmering skills, this projec
 
 ## References
 
-Cobra Code on Udemy: https://www.udemy.com/user/stephen-knall-2/
+Cobra Code on Udemy: https://www.udemy.com/user/cobra-code/
 
 The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 
