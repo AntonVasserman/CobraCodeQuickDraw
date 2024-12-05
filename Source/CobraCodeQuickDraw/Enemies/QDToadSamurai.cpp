@@ -5,13 +5,14 @@
 #include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
 #include "CobraCodeQuickDraw/Core/Controllers/QDAIController.h"
 #include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
 #include "Kismet/GameplayStatics.h"
 
 AQDToadSamurai::AQDToadSamurai()
 {
-	AttackSprite = UQDStatics::GetToadAttackSprite();
-	DefeatedSprite = UQDStatics::GetToadDefeatedSprite();
-	IdleSprite = UQDStatics::GetToadIdleSprite();
+	AttackSprite = UQDSpriteStatics::GetToadAttackSprite();
+	DefeatedSprite = UQDSpriteStatics::GetToadDefeatedSprite();
+	IdleSprite = UQDSpriteStatics::GetToadIdleSprite();
 	CrossPaperSpriteComp->SetRelativeLocation(FVector(-20.f, 0.2f, 10.f));
 	CrossPaperSpriteComp->SetRelativeRotation(FRotator(0.f, 180.f, 0.f));
 

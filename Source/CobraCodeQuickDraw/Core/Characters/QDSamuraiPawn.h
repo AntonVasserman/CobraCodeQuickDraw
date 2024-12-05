@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperSpriteComponent.h"
 #include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
 #include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/Pawn.h"
@@ -49,13 +50,13 @@ protected:
 	UPaperSpriteComponent* CrossPaperSpriteComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprites")
-	UPaperSprite* AttackSprite = UQDStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
+	UPaperSprite* AttackSprite = UQDSpriteStatics::GetTanukiAttackSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprites")
-	UPaperSprite* DefeatedSprite = UQDStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
+	UPaperSprite* DefeatedSprite = UQDSpriteStatics::GetTanukiDefeatedSprite(); // If a sprite isn't set, we default to the Tanuki sprite
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprites")
-	UPaperSprite* IdleSprite = UQDStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
+	UPaperSprite* IdleSprite = UQDSpriteStatics::GetTanukiIdleSprite(); // If a sprite isn't set, we default to the Tanuki sprite 
 
 	UPROPERTY(BlueprintReadOnly)
 	UTimelineComponent* SlideInTimelineComp;

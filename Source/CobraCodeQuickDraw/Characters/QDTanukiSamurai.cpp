@@ -4,15 +4,16 @@
 
 #include "PaperSpriteComponent.h"
 #include "Camera/CameraComponent.h"
+#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
 #include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 AQDTanukiSamurai::AQDTanukiSamurai()
 {
-	AttackSprite = UQDStatics::GetTanukiAttackSprite();
-	DefeatedSprite = UQDStatics::GetTanukiDefeatedSprite();
-	IdleSprite = UQDStatics::GetTanukiIdleSprite();
+	AttackSprite = UQDSpriteStatics::GetTanukiAttackSprite();
+	DefeatedSprite = UQDSpriteStatics::GetTanukiDefeatedSprite();
+	IdleSprite = UQDSpriteStatics::GetTanukiIdleSprite();
 	PaperSpriteComp->TranslucencySortPriority = 1;
 	CrossPaperSpriteComp->SetRelativeLocation(FVector(30.f, 0.2f, 10.f));
 
