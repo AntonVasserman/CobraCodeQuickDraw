@@ -40,3 +40,7 @@ The Udemy Course: https://www.udemy.com/course/unreal-2d-course/
 <!--
 #### Done:
 -->
+
+## Credits
+
+Marina Kulikov - Additional Sprites (Toad Minion Sprites)
