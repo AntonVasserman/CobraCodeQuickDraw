@@ -32,17 +32,13 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	// Setup Slide In Animation Timeline
 	SlideInTimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("Slide In Animation Timeline"));
 	SlideInTimelineUpdateDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineUpdate);
-	SlideInTimelineComp->AddInterpFloat(SlideInCurveFloat, SlideInTimelineUpdateDelegate);
 	SlideInTimelineFinishedDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineFinished);
-	SlideInTimelineComp->SetTimelineFinishedFunc(SlideInTimelineFinishedDelegate);
 	SlideInTimelineComp->SetPlayRate(SlideInPlayRate);
 
 	// Setup Attack Anim Timeline
 	AttackTimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("Attack Animation Timeline"));
 	AttackUpdateDelegate.BindDynamic(this, &AQDSamuraiPawn::OnAttackTimelineUpdate);
-	AttackTimelineComp->AddInterpFloat(AttackCurveFloat, AttackUpdateDelegate);
 	AttackEventDelegate.BindDynamic(this, &AQDSamuraiPawn::OnAttackTimelineEvent);
-	AttackTimelineComp->AddEvent(0.6f, AttackEventDelegate);
 	AttackTimelineComp->SetPlayRate(AttackPlayRate);
 }
 
@@ -72,10 +68,17 @@ void AQDSamuraiPawn::Defeated()
 void AQDSamuraiPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// Setup GameState reference
 	GameStateRef = GetWorld()->GetGameState<AQDGameStateBase>();
 	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
 
+	// Setup Bindings
+	SlideInTimelineComp->AddInterpFloat(SlideInCurveFloat, SlideInTimelineUpdateDelegate);
+	SlideInTimelineComp->SetTimelineFinishedFunc(SlideInTimelineFinishedDelegate);
+	AttackTimelineComp->AddInterpFloat(AttackCurveFloat, AttackUpdateDelegate);
+	AttackTimelineComp->AddEvent(0.6f, AttackEventDelegate);
+	
 	PaperSpriteComp->SetSprite(IdleSprite);
 	
 	SlideInStartLocation = PaperSpriteComp->GetComponentLocation();
