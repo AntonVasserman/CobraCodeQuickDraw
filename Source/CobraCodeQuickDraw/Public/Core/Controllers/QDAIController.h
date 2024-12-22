@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
+#include "Core/GameModes/QDPhase.h"
 #include "QDAIController.generated.h"
 
 UCLASS()

@@ -1,12 +1,12 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "QDSamuraiPawn.h"
+#include "Core/Characters/QDSamuraiPawn.h"
 
 #include "PaperSpriteComponent.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
+#include "Core/GameModes/QDPhase.h"
+#include "Core/GameModes/GameStates/QDGameStateBase.h"
+#include "Core/Utility/QDSpriteStatics.h"
+#include "Core/Utility/QDStatics.h"
 #include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
 

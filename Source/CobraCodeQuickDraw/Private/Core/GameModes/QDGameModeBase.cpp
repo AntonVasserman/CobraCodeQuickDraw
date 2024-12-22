@@ -1,12 +1,12 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "QDGameModeBase.h"
+#include "Core/GameModes/QDGameModeBase.h"
 
-#include "CobraCodeQuickDraw/Characters/QDTanukiSamurai.h"
-#include "CobraCodeQuickDraw/Core/Controllers/QDPlayerController.h"
-#include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
+#include "Characters/QDTanukiSamurai.h"
+#include "Core/Controllers/QDPlayerController.h"
+#include "Core/GameModes/GameStates/QDGameStateBase.h"
+#include "Enemies/QDToadSamurai.h"
 #include "GameFramework/GameStateBase.h"
-#include "GameStates/QDGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 

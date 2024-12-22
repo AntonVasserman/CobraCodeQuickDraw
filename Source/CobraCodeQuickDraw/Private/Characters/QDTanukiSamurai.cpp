@@ -1,11 +1,11 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "QDTanukiSamurai.h"
+#include "Characters/QDTanukiSamurai.h"
 
 #include "PaperSpriteComponent.h"
 #include "Camera/CameraComponent.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
-#include "CobraCodeQuickDraw/Enemies/QDToadSamurai.h"
+#include "Core/Utility/QDSpriteStatics.h"
+#include "Enemies/QDToadSamurai.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 

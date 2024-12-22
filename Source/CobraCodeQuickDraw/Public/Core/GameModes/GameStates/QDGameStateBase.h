@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
+#include "Core/GameModes/QDPhase.h"
 #include "GameFramework/GameStateBase.h"
 #include "QDGameStateBase.generated.h"
 

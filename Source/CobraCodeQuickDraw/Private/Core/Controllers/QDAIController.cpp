@@ -1,10 +1,10 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
 
-#include "QDAIController.h"
+#include "Core/Controllers/QDAIController.h"
 
-#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
-#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
+#include "Core/Characters/QDSamuraiPawn.h"
+#include "Core/GameModes/GameStates/QDGameStateBase.h"
 
 void AQDAIController::BeginPlay()
 {

@@ -1,13 +1,13 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
 
-#include "QDPlayerController.h"
+#include "Core/Controllers/QDPlayerController.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
-#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
-#include "CobraCodeQuickDraw/Core/GameModes/GameStates/QDGameStateBase.h"
+#include "Core/Characters/QDSamuraiPawn.h"
+#include "Core/GameModes/GameStates/QDGameStateBase.h"
 
 AQDPlayerController::AQDPlayerController()
 {

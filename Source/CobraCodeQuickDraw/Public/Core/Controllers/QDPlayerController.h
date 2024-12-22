@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "InputMappingContext.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDInputStatics.h"
+#include "Core/GameModes/QDPhase.h"
+#include "Core/Utility/QDInputStatics.h"
 #include "GameFramework/PlayerController.h"
 #include "QDPlayerController.generated.h"
 

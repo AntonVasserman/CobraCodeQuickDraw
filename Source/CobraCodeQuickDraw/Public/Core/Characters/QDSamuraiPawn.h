@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "PaperSpriteComponent.h"
-#include "CobraCodeQuickDraw/Core/GameModes/QDPhase.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDSpriteStatics.h"
-#include "CobraCodeQuickDraw/Core/Utility/QDStatics.h"
 #include "Components/TimelineComponent.h"
+#include "Core/GameModes/QDPhase.h"
+#include "Core/Utility/QDSpriteStatics.h"
+#include "Core/Utility/QDStatics.h"
 #include "GameFramework/Pawn.h"
 #include "QDSamuraiPawn.generated.h"
 

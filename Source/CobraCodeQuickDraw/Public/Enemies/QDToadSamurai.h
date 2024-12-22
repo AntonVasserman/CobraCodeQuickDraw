@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CobraCodeQuickDraw/Core/Characters/QDSamuraiPawn.h"
+#include "Core/Characters/QDSamuraiPawn.h"
 #include "QDToadSamurai.generated.h"
 
 UCLASS()
