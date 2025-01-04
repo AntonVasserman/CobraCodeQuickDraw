@@ -1,16 +1,16 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "Core/Characters/QDSamuraiPawn.h"
+#include "Characters/QDPawn.h"
 
 #include "PaperSpriteComponent.h"
+#include "Components/TimelineComponent.h"
 #include "Core/GameModes/QDPhase.h"
 #include "Core/GameModes/GameStates/QDGameStateBase.h"
 #include "Core/Utility/QDSpriteStatics.h"
 #include "Core/Utility/QDStatics.h"
-#include "Components/TimelineComponent.h"
 #include "Curves/CurveFloat.h"
 
-AQDSamuraiPawn::AQDSamuraiPawn()
+AQDPawn::AQDPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -31,47 +31,37 @@ AQDSamuraiPawn::AQDSamuraiPawn()
 	
 	// Setup Slide In Animation Timeline
 	SlideInTimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("Slide In Animation Timeline"));
-	SlideInTimelineUpdateDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineUpdate);
-	SlideInTimelineFinishedDelegate.BindDynamic(this, &AQDSamuraiPawn::OnSlideInTimelineFinished);
+	SlideInTimelineUpdateDelegate.BindDynamic(this, &AQDPawn::OnSlideInTimelineUpdate);
+	SlideInTimelineFinishedDelegate.BindDynamic(this, &AQDPawn::OnSlideInTimelineFinished);
 	SlideInTimelineComp->SetPlayRate(SlideInPlayRate);
 
 	// Setup Attack Anim Timeline
 	AttackTimelineComp = CreateDefaultSubobject<UTimelineComponent>(TEXT("Attack Animation Timeline"));
-	AttackUpdateDelegate.BindDynamic(this, &AQDSamuraiPawn::OnAttackTimelineUpdate);
-	AttackEventDelegate.BindDynamic(this, &AQDSamuraiPawn::OnAttackTimelineEvent);
+	AttackUpdateDelegate.BindDynamic(this, &AQDPawn::OnAttackTimelineUpdate);
+	AttackEventDelegate.BindDynamic(this, &AQDPawn::OnAttackTimelineEvent);
 	AttackTimelineComp->SetPlayRate(AttackPlayRate);
 }
 
-void AQDSamuraiPawn::Attack()
+void AQDPawn::Attack()
 {
-	switch (GameStateRef->GetPhase())
-	{
-	case EQDPhase::Wait:
-		OnStunned.Broadcast();
-		break;
-	case EQDPhase::Draw:
-		bCanAttack = false;
-		AttackTimelineComp->PlayFromStart();
-		break;
-	default:
-		break;
-	}
+	bCanAttack = false;
+	AttackTimelineComp->PlayFromStart();
 }
 
-void AQDSamuraiPawn::Defeated()
+void AQDPawn::Defeated()
 {
 	SetCrossVisibility(false);
 	PaperSpriteComp->SetSprite(DefeatedSprite);
 	OnDefeated.Broadcast();
 }
 
-void AQDSamuraiPawn::BeginPlay()
+void AQDPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
 	// Setup GameState reference
 	GameStateRef = GetWorld()->GetGameState<AQDGameStateBase>();
-	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDSamuraiPawn::OnPhaseChanged);
+	GameStateRef->OnPhaseChanged.AddDynamic(this, &AQDPawn::OnPhaseChanged);
 
 	// Setup Bindings
 	SlideInTimelineComp->AddInterpFloat(SlideInCurveFloat, SlideInTimelineUpdateDelegate);
@@ -87,7 +77,7 @@ void AQDSamuraiPawn::BeginPlay()
 	SetCrossVisibility(false);
 }
 
-void AQDSamuraiPawn::OnPhaseChanged(EQDPhase Phase)
+void AQDPawn::OnPhaseChanged(EQDPhase Phase)
 {
 	switch (Phase)
 	{
@@ -103,35 +93,35 @@ void AQDSamuraiPawn::OnPhaseChanged(EQDPhase Phase)
 	}
 }
 
-void AQDSamuraiPawn::OnSlideInTimelineFinished()
+void AQDPawn::OnSlideInTimelineFinished()
 {
 	bAwaitingDuel = true;
 	OnAwaitingDuel.Broadcast();
 }
 
-void AQDSamuraiPawn::OnSlideInTimelineUpdate(float Alpha)
+void AQDPawn::OnSlideInTimelineUpdate(float Alpha)
 {
 	SetActorRelativeLocation(FMath::Lerp(SlideInStartLocation, SlideInEndLocation, Alpha));
 }
 
-void AQDSamuraiPawn::OnAttackTimelineUpdate(float Alpha)
+void AQDPawn::OnAttackTimelineUpdate(float Alpha)
 {
 	SetActorRelativeLocation(FMath::Lerp(SlideInEndLocation, AttackEndLocation, Alpha));
 }
 
-void AQDSamuraiPawn::OnAttackTimelineEvent()
+void AQDPawn::OnAttackTimelineEvent()
 {
 	PaperSpriteComp->SetSprite(AttackSprite);
 	AttackTargetPawn->Defeated();
 }
 
-void AQDSamuraiPawn::PostInitProperties()
+void AQDPawn::PostInitProperties()
 {
 	Super::PostInitProperties();
 	PaperSpriteComp->SetSprite(IdleSprite);
 }
 
-void AQDSamuraiPawn::ResetDual()
+void AQDPawn::ResetDuel()
 {
 	PaperSpriteComp->SetSprite(IdleSprite);
 	bAwaitingDuel = false;

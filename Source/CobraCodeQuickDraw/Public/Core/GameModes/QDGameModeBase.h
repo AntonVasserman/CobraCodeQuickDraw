@@ -19,17 +19,15 @@ protected:
 	void OnAwaitingDuel();
 	UFUNCTION()
 	void OnDefeated();
-	UFUNCTION()
-	void OnStunned();
 
 private:
 	FTimerHandle DrawDelayTimerHandle;
 	
 	UPROPERTY()
-	class AQDTanukiSamurai* PlayerTanukiSamurai = nullptr;
+	class AQDPlayerPawn* PlayerPawn = nullptr;
 
 	UPROPERTY()
-	class AQDToadSamurai* ToadSamurai = nullptr;
+	class AQDEnemyPawn* EnemyPawn = nullptr;
 	
 	float MinDrawDelay = 1.f;
 	float MaxDrawDelay = 3.f;

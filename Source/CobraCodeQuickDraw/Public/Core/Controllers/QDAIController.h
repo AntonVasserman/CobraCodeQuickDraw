@@ -24,7 +24,7 @@ protected:
 
 private:
 	UPROPERTY()
-	class AQDSamuraiPawn* PossessedPawn;
+	class AQDEnemyPawn* PossessedEnemyPawn;
 
-	float DrawDelayDuration = 2.f;
+	float DrawDelayDuration = 3.f;
 };

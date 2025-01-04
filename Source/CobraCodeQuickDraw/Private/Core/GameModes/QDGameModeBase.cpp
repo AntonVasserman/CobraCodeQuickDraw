@@ -2,10 +2,10 @@
 
 #include "Core/GameModes/QDGameModeBase.h"
 
-#include "Characters/QDTanukiSamurai.h"
+#include "Characters/QDEnemyPawn.h"
+#include "Characters/QDPlayerPawn.h"
 #include "Core/Controllers/QDPlayerController.h"
 #include "Core/GameModes/GameStates/QDGameStateBase.h"
-#include "Enemies/QDToadSamurai.h"
 #include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -20,16 +20,15 @@ void AQDGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerTanukiSamurai = Cast<AQDTanukiSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDTanukiSamurai::StaticClass()));
-	PlayerTanukiSamurai->DispatchBeginPlay();
-	PlayerTanukiSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
-	PlayerTanukiSamurai->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
-	PlayerTanukiSamurai->OnStunned.AddDynamic(this, &AQDGameModeBase::OnStunned);
+	PlayerPawn = Cast<AQDPlayerPawn>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDPlayerPawn::StaticClass()));
+	PlayerPawn->DispatchBeginPlay();
+	PlayerPawn->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
+	PlayerPawn->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
 
-	ToadSamurai = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
-	ToadSamurai->DispatchBeginPlay();
-	ToadSamurai->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
-	ToadSamurai->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
+	EnemyPawn = Cast<AQDEnemyPawn>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDEnemyPawn::StaticClass()));
+	EnemyPawn->DispatchBeginPlay();
+	EnemyPawn->OnAwaitingDuel.AddDynamic(this, &AQDGameModeBase::OnAwaitingDuel);
+	EnemyPawn->OnDefeated.AddDynamic(this, &AQDGameModeBase::OnDefeated);
 
 	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Intro);
 }
@@ -41,16 +40,10 @@ void AQDGameModeBase::OnDefeated()
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AQDGameModeBase::ResetDual, 1.f, false, RestartDelay);
 }
 
-void AQDGameModeBase::OnStunned()
-{
-	GetWorldTimerManager().ClearTimer(DrawDelayTimerHandle);
-	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::PlayerStunned);
-}
-
 void AQDGameModeBase::OnAwaitingDuel()
 {
-	if (IsValid(PlayerTanukiSamurai) && PlayerTanukiSamurai->IsAwaitingDuel() &&
-		IsValid(ToadSamurai) && ToadSamurai->IsAwaitingDuel())
+	if (IsValid(PlayerPawn) && PlayerPawn->IsAwaitingDuel() &&
+		IsValid(EnemyPawn) && EnemyPawn->IsAwaitingDuel())
 	{
 		Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Wait);
 		const float RandomDelay = UKismetMathLibrary::RandomFloatInRange(MinDrawDelay, MaxDrawDelay);
@@ -65,7 +58,7 @@ void AQDGameModeBase::OnDrawDelayFinished()
 
 void AQDGameModeBase::ResetDual()
 {
-	PlayerTanukiSamurai->ResetDual();
-	ToadSamurai->ResetDual();
+	PlayerPawn->ResetDuel();
+	EnemyPawn->ResetDuel();
 	Cast<AQDGameStateBase>(GameState)->SetPhase(EQDPhase::Intro);
 }

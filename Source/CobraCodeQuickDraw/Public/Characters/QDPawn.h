@@ -9,29 +9,28 @@
 #include "Core/Utility/QDSpriteStatics.h"
 #include "Core/Utility/QDStatics.h"
 #include "GameFramework/Pawn.h"
-#include "QDSamuraiPawn.generated.h"
+#include "QDPawn.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAwaitingDuel);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDefeated);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnStunned);
 
 UCLASS()
-class COBRACODEQUICKDRAW_API AQDSamuraiPawn : public APawn
+class COBRACODEQUICKDRAW_API AQDPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	FOnAwaitingDuel OnAwaitingDuel;
 	FOnDefeated OnDefeated;
-	FOnStunned OnStunned;
 	
-	AQDSamuraiPawn();
-	virtual void Attack();
+	AQDPawn();
+
+	void Attack();
 	void Defeated();
 	FORCEINLINE bool CanAttack() const { return bCanAttack; }
 	FORCEINLINE bool IsAwaitingDuel() const { return bAwaitingDuel; }
 	virtual void PostInitProperties() override;
-	void ResetDual();
+	virtual void ResetDuel();
 	FORCEINLINE void SetCrossVisibility(const bool bVisibility) const { CrossPaperSpriteComp->SetVisibility(bVisibility); }
 
 protected:
@@ -78,9 +77,11 @@ protected:
 		meta = (ClampMin = "0.1", ClampMax = "100.0", SliderMin = "0.1", SliderMax = "100.0"))
 	float AttackPlayRate = 8.f;
 
+	UPROPERTY()
+	TObjectPtr<AQDPawn> AttackTargetPawn = nullptr;
+
 	bool bCanAttack = false;
-	TWeakObjectPtr<AQDSamuraiPawn> AttackTargetPawn = nullptr;
-	
+
 	virtual void BeginPlay() override;
 
 	UFUNCTION()

@@ -3,7 +3,8 @@
 
 #include "Core/Controllers/QDAIController.h"
 
-#include "Core/Characters/QDSamuraiPawn.h"
+#include "Characters/QDEnemyPawn.h"
+#include "Characters/QDPawn.h"
 #include "Core/GameModes/GameStates/QDGameStateBase.h"
 
 void AQDAIController::BeginPlay()
@@ -28,13 +29,13 @@ void AQDAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	PossessedPawn = Cast<AQDSamuraiPawn>(InPawn);
+	PossessedEnemyPawn = Cast<AQDEnemyPawn>(InPawn);
 }
 
 void AQDAIController::RequestAttackAction()
 {
-	if (PossessedPawn->CanAttack())
+	if (PossessedEnemyPawn->CanAttack())
 	{
-		PossessedPawn->Attack();
+		PossessedEnemyPawn->Attack();
 	}
 }

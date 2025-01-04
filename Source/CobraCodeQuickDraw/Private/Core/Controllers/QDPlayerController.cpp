@@ -1,12 +1,12 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-
 #include "Core/Controllers/QDPlayerController.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
-#include "Core/Characters/QDSamuraiPawn.h"
+#include "Characters/QDPawn.h"
+#include "Characters/QDPlayerPawn.h"
 #include "Core/GameModes/GameStates/QDGameStateBase.h"
 
 AQDPlayerController::AQDPlayerController()
@@ -35,7 +35,10 @@ void AQDPlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* EnhancedInputComp = Cast<UEnhancedInputComponent>(InputComponent);
 		IsValid(EnhancedInputComp))
 	{
-		EnhancedInputComp->BindAction(AttackAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestAttackAction);
+		EnhancedInputComp->BindAction(DownAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestDownAction);
+		EnhancedInputComp->BindAction(LeftAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestLeftAction);
+		EnhancedInputComp->BindAction(RightAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestRightAction);
+		EnhancedInputComp->BindAction(UpAction, ETriggerEvent::Started, this, &AQDPlayerController::RequestUpAction);
 	}
 }
 
@@ -64,13 +67,13 @@ void AQDPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	PossessedPawn = Cast<AQDSamuraiPawn>(InPawn);
+	PossessedPlayerPawn = Cast<AQDPlayerPawn>(InPawn);
 }
 
-void AQDPlayerController::RequestAttackAction()
+void AQDPlayerController::RequestActAction(EQDKeyArrow KeyArrow)
 {
-	if (PossessedPawn->CanAttack())
+	if (PossessedPlayerPawn->CanAct())
 	{
-		PossessedPawn->Attack();
+		PossessedPlayerPawn->Act(KeyArrow);
 	}
 }

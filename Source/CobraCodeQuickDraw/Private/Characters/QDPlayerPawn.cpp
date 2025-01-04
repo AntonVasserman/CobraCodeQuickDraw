@@ -1,15 +1,17 @@
 // Copyright Anton Vasserman, All Rights Reserved.
 
-#include "Characters/QDTanukiSamurai.h"
+#include "Characters/QDPlayerPawn.h"
 
 #include "PaperSpriteComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Characters/QDEnemyPawn.h"
+#include "Core/GameModes/GameStates/QDGameStateBase.h"
 #include "Core/Utility/QDSpriteStatics.h"
-#include "Enemies/QDToadSamurai.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Subsystems/QDDrawWorldSubsystem.h"
 
-AQDTanukiSamurai::AQDTanukiSamurai()
+AQDPlayerPawn::AQDPlayerPawn()
 {
 	AttackSprite = UQDSpriteStatics::GetTanukiAttackSprite();
 	DefeatedSprite = UQDSpriteStatics::GetTanukiDefeatedSprite();
@@ -34,25 +36,46 @@ AQDTanukiSamurai::AQDTanukiSamurai()
 	CameraComp->SetAutoCalculateOrthoPlanes(false);
 }
 
-void AQDTanukiSamurai::BeginPlay()
+void AQDPlayerPawn::ResetDuel()
 {
-	Super::BeginPlay();
-	
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
-	AttackTargetPawn = Cast<AQDToadSamurai>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDToadSamurai::StaticClass()));
+	Super::ResetDuel();
+
+	bStunned = false;
 }
 
-void AQDTanukiSamurai::OnPhaseChanged(EQDPhase Phase)
+void AQDPlayerPawn::Act(const EQDKeyArrow& KeyArrow) const
 {
-	Super::OnPhaseChanged(Phase);
-	
-	switch (Phase)
+	switch (GameStateRef->GetPhase())
 	{
-	case EQDPhase::PlayerStunned:
-		SetCrossVisibility(true);
-		bCanAttack = false;
+	case EQDPhase::Draw:
+		GetWorld()->GetSubsystem<UQDDrawWorldSubsystem>()->AddKeyArrowToCombo(KeyArrow);
 		break;
 	default:
 		break;
 	}
+}
+
+void AQDPlayerPawn::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->Possess(this);
+	AttackTargetPawn = Cast<AQDEnemyPawn>(UGameplayStatics::GetActorOfClass(GetWorld(), AQDEnemyPawn::StaticClass()));
+
+	UQDDrawWorldSubsystem* DrawSubsystem = GetWorld()->GetSubsystem<UQDDrawWorldSubsystem>();
+	DrawSubsystem->OnDrawComboFailed.AddDynamic(this, &AQDPlayerPawn::OnDrawComboFailed);
+	DrawSubsystem->OnDrawComboSucceeded.AddDynamic(this, &AQDPlayerPawn::OnDrawComboSucceeded);
+}
+
+void AQDPlayerPawn::OnDrawComboFailed()
+{
+	bStunned = true;
+	SetCrossVisibility(true);
+	bCanAttack = false;
+	OnStunned.Broadcast();
+}
+
+void AQDPlayerPawn::OnDrawComboSucceeded()
+{
+	Attack();
 }
